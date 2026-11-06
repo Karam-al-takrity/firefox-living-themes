@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="20" viewBox="0 0 190 20">
+<defs><linearGradient id="t" x1="0" x2="1">
+  <stop offset="0" stop-color="#b3e5ff" stop-opacity="0"/><stop offset=".6" stop-color="#d9c2ff" stop-opacity=".7"/><stop offset="1" stop-color="#ffb3d9"/>
+</linearGradient></defs>
+<style>
+  .f { animation: f .25s steps(1) infinite; } @keyframes f { 50% { opacity: .35; } }
+  .s { animation: s 1s ease-in-out infinite; } .s2 { animation-delay: -.5s; }
+  @keyframes s { 50% { opacity: .1; } }
+</style>
+<rect x="0" y="9" width="160" height="2" rx="1" fill="url(#t)"/>
+<path class="s" d="M70 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#fff0a8"/>
+<path class="s s2" d="M115 12l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#ffb3d9"/>
+<g transform="translate(176 10) rotate(90)">
+  <path d="M0,-12 Q6,-4 5,6 L-5,6 Q-6,-4 0,-12Z" fill="#f5eefc"/>
+  <circle cy="-2" r="2.2" fill="#b3e5ff"/>
+  <path d="M-5,3 L-9,9 L-5,7Z M5,3 L9,9 L5,7Z" fill="#ffb3d9"/>
+  <path class="f" d="M-3,7 Q0,16 3,7Z" fill="#fff0a8"/>
+</g>
+</svg>

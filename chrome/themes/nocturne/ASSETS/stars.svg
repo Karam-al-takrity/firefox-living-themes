@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="90" viewBox="0 0 480 90">
+<style>
+  .tw { animation: twinkle 4s ease-in-out infinite; }
+  .tw1 { animation-delay: 0s; } .tw2 { animation-delay: -1.3s; animation-duration: 5s; }
+  .tw3 { animation-delay: -2.1s; animation-duration: 3.4s; } .tw4 { animation-delay: -3s; animation-duration: 6s; }
+  @keyframes twinkle { 0%,100% { opacity: .9; } 50% { opacity: .1; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+<circle class="tw tw1" cx="312" cy="9" r="0.9" fill="#fdf6ff"/>
+<circle class="tw tw3" cx="2" cy="79" r="0.8" fill="#ffb3d9"/>
+<circle class="tw tw2" cx="19" cy="26" r="0.7" fill="#fdf6ff"/>
+<circle class="tw tw3" cx="446" cy="34" r="1.2" fill="#ffb3d9"/>
+<circle class="tw tw3" cx="372" cy="60" r="0.6" fill="#d9c2ff"/>
+<circle class="tw tw3" cx="104" cy="33" r="0.7" fill="#fdf6ff"/>
+<circle class="tw tw1" cx="18" cy="66" r="1.2" fill="#fff0a8"/>
+<circle class="tw tw3" cx="393" cy="37" r="0.9" fill="#b3e5ff"/>
+<circle class="tw tw1" cx="37" cy="3" r="0.9" fill="#ffb3d9"/>
+<circle class="tw tw1" cx="196" cy="72" r="1.1" fill="#fdf6ff"/>
+<circle class="tw tw3" cx="313" cy="36" r="0.8" fill="#fdf6ff"/>
+<circle class="tw tw4" cx="201" cy="5" r="1.1" fill="#fdf6ff"/>
+<circle class="tw tw2" cx="200" cy="78" r="1.3" fill="#fdf6ff"/>
+<circle class="tw tw2" cx="188" cy="36" r="1.3" fill="#ffb3d9"/>
+<circle class="tw tw4" cx="203" cy="74" r="0.9" fill="#fdf6ff"/>
+<circle class="tw tw4" cx="371" cy="12" r="0.6" fill="#fdf6ff"/>
+<circle class="tw tw2" cx="43" cy="56" r="0.9" fill="#b3e5ff"/>
+<circle class="tw tw1" cx="70" cy="25" r="1.0" fill="#fdf6ff"/>
+<circle class="tw tw2" cx="184" cy="68" r="1.2" fill="#fff0a8"/>
+<circle class="tw tw3" cx="145" cy="75" r="0.6" fill="#ffb3d9"/>
+<circle class="tw tw2" cx="26" cy="83" r="0.9" fill="#d9c2ff"/>
+<circle class="tw tw2" cx="307" cy="77" r="1.0" fill="#b3e5ff"/>
+<path class="tw tw2" d="M120,18 Q120,22 124,22 Q120,22 120,26 Q120,22 116,22 Q120,22 120,18Z" fill="#fff0a8"/><path class="tw tw3" d="M380,56.5 Q380,60 383.5,60 Q380,60 380,63.5 Q380,60 376.5,60 Q380,60 380,56.5Z" fill="#ffb3d9"/>
+</svg>

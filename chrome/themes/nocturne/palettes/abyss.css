@@ -1,0 +1,12 @@
+/* Abyss — bioluminescent deep sea: cyan jellyfish and coral pink */
+:root {
+  --nc-bg:        #03110f;
+  --nc-surface:   #0a1d1a;
+  --nc-surface-2: #102b27;
+  --nc-text:      #e6fffb;
+  --nc-muted:     #7fa8a1;
+  --nc-main:      #00f5d4;   /* hover, focus, glass tint */
+  --nc-hot:       #ff4fa3;   /* active tab glow, close button */
+  --nc-cool:      #0096ff;   /* third aurora light */
+  --nc-star:      #f9f871;   /* bookmarked star */
+}

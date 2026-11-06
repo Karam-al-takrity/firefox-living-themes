@@ -1,0 +1,14 @@
+<!doctype html>
+<!-- Rough stand-in for Firefox's new tab page with the search box turned off,
+     to preview the Nocturne styles outside Firefox. -->
+<meta charset="utf-8">
+<title>New tab preview</title>
+<style>
+  body { margin: 0; min-height: 100vh; background: #16121c; overflow: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: url("../chrome/themes/nocturne/ASSETS/space-scene.svg") center / cover no-repeat; }
+  body:not(:has(.search-wrapper))::after {
+    content: ""; position: fixed; left: 50%; top: 50%; width: min(820px, 92vw); height: 250px;
+    transform: translate(-50%, -50%); background: url("../chrome/themes/nocturne/ASSETS/center.svg") center / contain no-repeat; pointer-events: none;
+  }
+</style>
+<main></main>

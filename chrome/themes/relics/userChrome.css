@@ -1,0 +1,530 @@
+/* =====================================================================
+   RELICS - userChrome.css  (Firefox 159, horizontal tabs)
+   A dark room lit by a paper lantern: ink, blood red, lantern orange.
+   Loaded from chrome/userChrome.css via @import.
+   Pref:   relics.freeze = true  -> stops every animation
+   Bookmark labels with their own icon: AI, Social, Piracy, Tetris,
+   Freeze, TFT, Chess, Linux, Other
+   ===================================================================== */
+
+:root {
+  --relics-ink: #110d0f;
+  --relics-panel: #191416;
+  --relics-raise: #241c1f;
+  --relics-line: #3a2d31;
+  --relics-paper: #efe6d2;
+  --relics-muted: #a3958c;
+  --relics-red: #c1121f;
+  --relics-lantern: #ff8a4a;
+  --relics-gold: #e9b45a;
+  --relics-ice: #9fd8ff;
+  --relics-pop: cubic-bezier(.34, 1.56, .64, 1);
+  --relics-font: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+
+  --lwt-accent-color: var(--relics-ink) !important;
+  --lwt-text-color: var(--relics-paper) !important;
+  --toolbar-bgcolor: var(--relics-panel) !important;
+  --toolbar-color: var(--relics-paper) !important;
+  --toolbarbutton-icon-fill: var(--relics-paper) !important;
+  --toolbarbutton-hover-background: var(--relics-raise) !important;
+  --toolbarbutton-active-background: var(--relics-line) !important;
+  --toolbar-field-background-color: var(--relics-ink) !important;
+  --toolbar-field-focus-background-color: #0c090a !important;
+  --toolbar-field-color: var(--relics-paper) !important;
+  --toolbar-field-focus-color: var(--relics-paper) !important;
+  --toolbar-field-border-color: var(--relics-line) !important;
+  --toolbar-field-focus-border-color: var(--relics-red) !important;
+  --toolbar-field-border-color-focus: var(--relics-red) !important;
+  --tab-selected-bgcolor: var(--relics-raise) !important;
+  --tab-selected-textcolor: var(--relics-paper) !important;
+  --tab-hover-background-color: var(--relics-panel) !important;
+  --tabpanel-background-color: var(--relics-ink) !important;
+  --chrome-content-separator-color: var(--relics-line) !important;
+  --focus-outline-color: var(--relics-red) !important;
+  --urlbarView-highlight-background: var(--relics-raise) !important;
+  --urlbarView-highlight-color: var(--relics-paper) !important;
+  --arrowpanel-background: var(--relics-panel) !important;
+  --arrowpanel-color: var(--relics-paper) !important;
+  --arrowpanel-border-color: var(--relics-line) !important;
+  --panel-separator-color: var(--relics-line) !important;
+  --sidebar-background-color: var(--relics-panel) !important;
+  --sidebar-text-color: var(--relics-paper) !important;
+  --button-background-color: var(--relics-raise) !important;
+  --button-background-color-hover: var(--relics-line) !important;
+  --button-text-color: var(--relics-paper) !important;
+  --button-background-color-primary: var(--relics-red) !important;
+  --button-text-color-primary: #fff !important;
+  --toolbox-background-gradient: none !important;
+}
+
+/* =============================== top area =============================== */
+#navigator-toolbox {
+  background:
+    radial-gradient(ellipse 30% 160% at 88% 0%, rgba(255,138,74,.12), transparent 70%),
+    radial-gradient(ellipse 30% 140% at 0% 0%, rgba(193,18,31,.14), transparent 70%),
+    var(--relics-ink) !important;
+  border-bottom: 0 !important;
+  font-family: var(--relics-font) !important;
+}
+
+/* a red thread under the toolbars with a spark travelling along it.
+   While the current page is loading the spark races. */
+#navigator-toolbox::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background:
+    radial-gradient(circle 18px at center, rgba(255,170,110,.95), transparent 70%) no-repeat,
+    linear-gradient(90deg, transparent, var(--relics-red) 12%, var(--relics-red) 88%, transparent);
+  background-size: 36px 100%, 100% 100%;
+  animation: relics-spark 9s linear infinite;
+}
+#navigator-toolbox:has(.tabbrowser-tab[selected][busy])::after { animation-duration: 1.1s; }
+
+#TabsToolbar { background: transparent !important; }
+
+/* Red John at the start of the tab strip: twitches every so often */
+#TabsToolbar-customization-target::before {
+  content: "";
+  align-self: center;
+  flex: none;
+  width: 22px; height: 22px;
+  margin-inline: 10px 4px;
+  background: url("assets/redjohn-mini.svg") center / contain no-repeat;
+  filter: drop-shadow(0 0 5px rgba(193,18,31,.55));
+  animation: relics-twitch 11s ease-in-out infinite;
+}
+
+/* ================================ tabs ================================= */
+.tabbrowser-tab { font-family: var(--relics-font) !important; }
+.tabbrowser-tab .tab-stack { position: relative; }
+
+.tabbrowser-tab .tab-background {
+  position: relative;
+  border-radius: 7px !important;
+  margin-block: 5px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition:
+    opacity .3s ease, transform .4s var(--relics-pop), filter .3s ease,
+    background-color .2s, border-color .2s, box-shadow .3s !important;
+}
+.tabbrowser-tab .tab-content { transition: opacity .25s ease, transform .35s var(--relics-pop) !important; }
+
+/* OPEN: rises out of the dark and comes into focus.
+   CLOSE: sinks, blurs and glows red like a burning page while it folds away. */
+.tabbrowser-tab:not([fadein]) .tab-background {
+  visibility: visible !important;
+  opacity: 0;
+  transform: translateY(10px) scale(.82);
+  filter: blur(3px);
+  box-shadow: 0 0 14px rgba(255,90,40,.8) !important;
+}
+.tabbrowser-tab:not([fadein]) .tab-content { opacity: 0; transform: translateY(8px); }
+
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background: var(--relics-panel) !important;
+  border-color: var(--relics-line) !important;
+  transform: translateY(-1px);
+}
+
+/* the open tab: lit from below, a red thread draws in underneath */
+.tabbrowser-tab[selected] .tab-background {
+  background:
+    linear-gradient(var(--relics-red), var(--relics-red)) no-repeat 50% calc(100% - 1px) / 60% 2px,
+    radial-gradient(ellipse 80% 90% at 50% 120%, rgba(255,138,74,.20), transparent 70%),
+    var(--relics-raise) !important;
+  border-color: var(--relics-line) !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.55) !important;
+  animation: relics-thread-in .45s var(--relics-pop) both;
+}
+.tabbrowser-tab .tab-label { color: var(--relics-muted) !important; transition: color .2s !important; }
+.tabbrowser-tab:hover .tab-label { color: var(--relics-paper) !important; }
+.tabbrowser-tab[selected] .tab-label { color: var(--relics-paper) !important; font-weight: 600 !important; }
+
+.tabbrowser-tab:not([selected]):not(:hover) .tab-icon-image { filter: grayscale(.8) opacity(.7); }
+.tab-icon-image { transition: filter .25s !important; }
+.tabbrowser-tab[pending] .tab-content { opacity: .45; }
+
+/* LOADING: a lantern-orange ring instead of the stock spinner ... */
+.tab-throbber[busy]::before {
+  background-image: none !important;
+  -moz-context-properties: none !important;
+  box-sizing: border-box !important;
+  border: 2px solid rgba(255,138,74,.18) !important;
+  border-top-color: var(--relics-lantern) !important;
+  border-radius: 50% !important;
+  animation: relics-spin .75s linear infinite !important;
+}
+.tab-throbber[progress]::before {
+  border-top-color: var(--relics-red) !important;
+  border-right-color: var(--relics-red) !important;
+  animation-duration: .5s !important;
+}
+/* ... and a light sweeping along the bottom of the tab */
+.tabbrowser-tab[busy] .tab-background::after {
+  content: "";
+  position: absolute;
+  inset-inline: 12%;
+  bottom: 1px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--relics-lantern), transparent) no-repeat;
+  background-size: 40% 100%;
+  animation: relics-sweep 1s ease-in-out infinite;
+}
+/* when it finishes: a small lantern-coloured flash */
+.tab-loading-burst[bursting]::before {
+  background-image: radial-gradient(circle, rgba(255,138,74,.7), rgba(193,18,31,.25) 45%, transparent 70%) !important;
+}
+
+/* PLAYING SOUND: little equalizer bars dancing on top of the tab */
+.tabbrowser-tab:is([soundplaying], [muted]) .tab-stack::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 23px;
+  height: 8px;
+  margin-left: -11px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--relics-lantern), var(--relics-lantern)),
+    linear-gradient(var(--relics-gold), var(--relics-gold)),
+    linear-gradient(var(--relics-lantern), var(--relics-lantern)),
+    linear-gradient(var(--relics-red), var(--relics-red));
+  background-repeat: no-repeat;
+  background-position: 0 100%, 6px 100%, 12px 100%, 18px 100%;
+  background-size: 4px 40%, 4px 100%, 4px 60%, 4px 80%;
+  border-radius: 1px;
+  filter: drop-shadow(0 0 3px rgba(255,138,74,.7));
+}
+.tabbrowser-tab[soundplaying]:not([muted]) .tab-stack::after { animation: relics-eq .8s ease-in-out infinite alternate; }
+.tabbrowser-tab[muted] .tab-stack::after {
+  background-size: 4px 25%, 4px 25%, 4px 25%, 4px 25%;
+  opacity: .5;
+  filter: none;
+}
+
+/* close button: spins into a red cross */
+.tab-close-button { border-radius: 50% !important; transition: transform .35s var(--relics-pop), background-color .2s !important; }
+.tab-close-button:hover { transform: rotate(90deg) scale(1.12); background-color: var(--relics-red) !important; fill: #fff !important; }
+
+#tabs-newtab-button:hover .toolbarbutton-icon,
+#new-tab-button:hover .toolbarbutton-icon { animation: relics-wobble .5s ease-in-out; fill: var(--relics-lantern) !important; }
+
+/* =============================== toolbar ================================ */
+#nav-bar {
+  background: var(--relics-panel) !important;
+  border-top: 1px solid var(--relics-line) !important;
+  box-shadow: none !important;
+}
+
+.toolbarbutton-1 > .toolbarbutton-icon,
+.toolbarbutton-1 > .toolbarbutton-badge-stack {
+  transition: transform .3s var(--relics-pop), background-color .2s !important;
+}
+.toolbarbutton-1:not([disabled]):hover > .toolbarbutton-icon,
+.toolbarbutton-1:not([disabled]):hover > .toolbarbutton-badge-stack { transform: translateY(-2px); }
+.toolbarbutton-1:not([disabled]):hover { fill: var(--relics-lantern) !important; }
+
+#back-button:not([disabled]):hover > .toolbarbutton-icon { transform: translateX(-3px) !important; }
+#forward-button:not([disabled]):hover > .toolbarbutton-icon { transform: translateX(3px) !important; }
+#reload-button:hover > .toolbarbutton-icon { transform: rotate(-200deg) !important; transition-duration: .6s !important; }
+#stop-button > .toolbarbutton-icon { fill: var(--relics-red) !important; }
+#PanelUI-menu-button[open] > .toolbarbutton-badge-stack { transform: rotate(90deg) !important; }
+#star-button[starred] { animation: relics-pop .45s var(--relics-pop); fill: var(--relics-red) !important; }
+
+/* DOWNLOAD FINISHED: the button jumps and a gold ring rolls out of it */
+#downloads-button > .toolbarbutton-badge-stack { border-radius: 50%; }
+#downloads-button:is([notification="finish"], [attention="success"]) > .toolbarbutton-badge-stack {
+  animation: relics-dl-done 1.3s ease-out 1;
+}
+#downloads-button[attention="success"] #downloads-indicator-icon {
+  fill: var(--relics-gold) !important;
+  filter: drop-shadow(0 0 4px rgba(233,180,90,.75));
+}
+#downloads-indicator-progress-inner { background-color: var(--relics-lantern) !important; }
+
+/* ===================== address bar ===================== */
+/* a centred pill that stretches out when you use it */
+#urlbar-container {
+  max-width: 640px !important;
+  margin-inline: auto !important;
+  transition: max-width .5s cubic-bezier(.2,.8,.2,1) !important;
+}
+#urlbar-container:focus-within,
+#urlbar-container:has(#urlbar[open]) { max-width: 980px !important; }
+
+.urlbar-background {
+  border-radius: 999px !important;
+  border: 1.5px solid transparent !important;
+  background:
+    linear-gradient(#0e0a0c, #0e0a0c) padding-box,
+    linear-gradient(90deg, #3a2d31, #4a383d, #3a2d31) border-box !important;
+  box-shadow: inset 0 1px 6px rgba(0,0,0,.6) !important;
+  transition: box-shadow .4s ease, border-radius .3s ease !important;
+}
+:hover > .urlbar-background {
+  background:
+    linear-gradient(#100b0d, #100b0d) padding-box,
+    linear-gradient(90deg, #4a383d, var(--relics-red), #4a383d) border-box !important;
+}
+/* focused: the border catches fire and keeps moving */
+[focused] > .urlbar-background,
+[open] > .urlbar-background {
+  background:
+    linear-gradient(#0b0809, #0b0809) padding-box,
+    linear-gradient(90deg, var(--relics-red), var(--relics-lantern), var(--relics-gold), var(--relics-lantern), var(--relics-red)) border-box !important;
+  background-size: 100% 100%, 300% 100% !important;
+  animation: relics-burn 3s linear infinite;
+  box-shadow: 0 0 0 4px rgba(193,18,31,.10), 0 0 28px rgba(255,138,74,.22) !important;
+  outline: none !important;
+}
+[open] > .urlbar-background { border-radius: 20px !important; }
+
+/* the address sits centred until you click in */
+#urlbar:not([focused]) #urlbar-input { text-align: center !important; }
+#urlbar-input { caret-color: var(--relics-red) !important; letter-spacing: .01em; }
+#urlbar-input::selection { background: var(--relics-red) !important; color: #fff !important; }
+
+/* our own placeholder */
+#urlbar-input::placeholder { color: transparent !important; }
+#urlbar .urlbar-input-box { position: relative; }
+#urlbar:has(#urlbar-input:placeholder-shown) .urlbar-input-box::before {
+  content: "where to tonight\2026";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--relics-muted);
+  font-style: italic;
+  letter-spacing: .04em;
+  animation: relics-breathe-text 4s ease-in-out infinite;
+}
+#urlbar[focused]:has(#urlbar-input:placeholder-shown) .urlbar-input-box::before { justify-content: flex-start; opacity: .6; animation: none; }
+
+/* results drop in one by one */
+.urlbarView-row { animation: relics-row-in .28s var(--relics-pop) both; border-radius: 8px !important; transition: transform .2s !important; }
+.urlbarView-row:nth-child(2) { animation-delay: .03s; }
+.urlbarView-row:nth-child(3) { animation-delay: .06s; }
+.urlbarView-row:nth-child(4) { animation-delay: .09s; }
+.urlbarView-row:nth-child(5) { animation-delay: .12s; }
+.urlbarView-row:nth-child(6) { animation-delay: .15s; }
+.urlbarView-row:nth-child(7) { animation-delay: .18s; }
+.urlbarView-row:nth-child(8) { animation-delay: .21s; }
+.urlbarView-row:nth-child(n+9) { animation-delay: .24s; }
+.urlbarView-row:hover { transform: translateX(3px); }
+.urlbarView-row[selected], .urlbarView-row[selected] > .urlbarView-row-inner { background-color: rgba(193,18,31,.16) !important; }
+.urlbarView-row[selected] { box-shadow: inset 3px 0 0 var(--relics-red) !important; }
+.urlbarView-row[selected] .urlbarView-title { color: var(--relics-lantern) !important; }
+.urlbarView-url { color: #c99a7a !important; }
+.urlbarView-row[selected] .urlbarView-url { color: var(--relics-gold) !important; }
+.urlbarView-favicon { transition: transform .3s var(--relics-pop) !important; }
+.urlbarView-row[selected] .urlbarView-favicon { transform: scale(1.18) rotate(-6deg); }
+
+/* ===================== bookmarks bar ===================== */
+#PersonalToolbar {
+  background: var(--relics-panel) !important;
+  border-bottom: 1px solid var(--relics-line) !important;
+  padding-block: 2px 3px !important;
+  font-family: var(--relics-font) !important;
+}
+#PersonalToolbar .bookmark-item {
+  margin-inline: 2px !important;
+  padding: 4px 9px !important;
+  border-radius: 6px !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--relics-muted) !important;
+  background-color: transparent !important;
+  /* an ink line that draws in under the hovered bookmark */
+  background-image: linear-gradient(90deg, transparent, var(--relics-red), transparent) !important;
+  background-repeat: no-repeat !important;
+  background-position: 50% 100% !important;
+  background-size: 0% 1.5px !important;
+  transition: color .2s, background-size .35s ease, background-color .2s !important;
+}
+#PersonalToolbar .bookmark-item:hover,
+#PersonalToolbar .bookmark-item[open] {
+  color: var(--relics-paper) !important;
+  background-color: rgba(255,255,255,.035) !important;
+  background-size: 80% 1.5px !important;
+}
+#PersonalToolbar .bookmark-item > .toolbarbutton-icon {
+  width: 16px !important;
+  height: 16px !important;
+  transition: transform .3s var(--relics-pop), filter .3s !important;
+}
+#PersonalToolbar .bookmark-item:not([label="Freeze"]):hover > .toolbarbutton-icon { filter: drop-shadow(0 0 3px rgba(255,138,74,.6)); }
+#PersonalToolbar toolbarseparator {
+  appearance: none !important;
+  border: 0 !important;
+  width: 1px !important;
+  margin: 6px 6px !important;
+  background: linear-gradient(transparent, var(--relics-red), transparent) !important;
+}
+
+/* each bookmark gets its own icon ... */
+#PersonalToolbar .bookmark-item[label="AI"]     > .toolbarbutton-icon { content: url("assets/icons/ai.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Social"] > .toolbarbutton-icon { content: url("assets/icons/social.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Piracy"] > .toolbarbutton-icon { content: url("assets/icons/piracy.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Tetris"] > .toolbarbutton-icon { content: url("assets/icons/tetris.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Freeze"] > .toolbarbutton-icon { content: url("assets/icons/freeze.svg") !important; }
+#PersonalToolbar .bookmark-item[label="TFT"]    > .toolbarbutton-icon { content: url("assets/icons/tft.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Chess"]  > .toolbarbutton-icon { content: url("assets/icons/chess.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Linux"]  > .toolbarbutton-icon { content: url("assets/icons/linux.svg") !important; }
+#PersonalToolbar .bookmark-item[label="Other"]  > .toolbarbutton-icon { content: url("assets/icons/other.svg") !important; }
+
+/* ... and its own little move on hover */
+#PersonalToolbar .bookmark-item[label="AI"]:hover     > .toolbarbutton-icon { animation: relics-ic-twinkle .7s var(--relics-pop); }
+#PersonalToolbar .bookmark-item[label="Social"]:hover > .toolbarbutton-icon { animation: relics-ic-chat .6s ease-out; }
+#PersonalToolbar .bookmark-item[label="Piracy"]:hover > .toolbarbutton-icon { animation: relics-ic-wobble .7s ease-out; }
+#PersonalToolbar .bookmark-item[label="Tetris"]:hover > .toolbarbutton-icon { animation: relics-ic-drop .6s ease-out; }
+#PersonalToolbar .bookmark-item[label="Freeze"]:hover > .toolbarbutton-icon { animation: relics-ic-spin .8s var(--relics-pop); filter: drop-shadow(0 0 4px rgba(159,216,255,.8)); }
+#PersonalToolbar .bookmark-item[label="TFT"]:hover    > .toolbarbutton-icon { animation: relics-ic-crown .6s var(--relics-pop); }
+#PersonalToolbar .bookmark-item[label="Chess"]:hover  > .toolbarbutton-icon { animation: relics-ic-knight .7s ease-in-out; }
+#PersonalToolbar .bookmark-item[label="Linux"]:hover  > .toolbarbutton-icon { animation: relics-ic-waddle .8s ease-in-out; }
+#PersonalToolbar .bookmark-item[label="Other"]:hover  > .toolbarbutton-icon { animation: relics-ic-dots .6s ease-in-out; }
+
+/* when relics.freeze is on, the Freeze bookmark shows it: icy, glowing, underlined */
+@media -moz-pref("relics.freeze") {
+  #PersonalToolbar .bookmark-item[label="Freeze"] {
+    color: var(--relics-ice) !important;
+    background-image: linear-gradient(90deg, transparent, var(--relics-ice), transparent) !important;
+    background-size: 80% 1.5px !important;
+    background-color: rgba(159,216,255,.07) !important;
+  }
+  #PersonalToolbar .bookmark-item[label="Freeze"] > .toolbarbutton-icon {
+    filter: drop-shadow(0 0 4px rgba(159,216,255,.9)) !important;
+    transform: rotate(30deg) scale(1.1);
+  }
+}
+
+/* ===================== night music button (made by chrome.js, which also sets its icon) ===================== */
+#relics-music-button { margin-inline: 4px 2px !important; align-self: center !important; }
+#relics-music-button > .toolbarbutton-icon { display: block !important; width: 16px !important; height: 16px !important; padding: 0 !important; transition: transform .3s var(--relics-pop), filter .3s !important; }
+#relics-music-button[playing] > .toolbarbutton-icon { filter: drop-shadow(0 0 4px rgba(255,138,74,.7)); }
+#relics-music-button:hover > .toolbarbutton-icon { transform: rotate(-10deg) scale(1.12); }
+#relics-music-button > .toolbarbutton-text { display: none !important; }
+/* =========================== menus and panels =========================== */
+menupopup, panel {
+  --panel-background: var(--relics-panel) !important;
+  --panel-color: var(--relics-paper) !important;
+  --panel-border-color: var(--relics-line) !important;
+  --menuitem-hover-background-color: var(--relics-raise) !important;
+  --menu-background-color: var(--relics-panel) !important;
+  --menu-color: var(--relics-paper) !important;
+  --menu-border-color: var(--relics-line) !important;
+}
+menupopup menuitem, menupopup menu, .subviewbutton { transition: box-shadow .2s !important; }
+menupopup menuitem[_moz-menuactive], menupopup menu[_moz-menuactive],
+.subviewbutton:hover { box-shadow: inset 3px 0 0 var(--relics-red) !important; }
+
+tooltip {
+  appearance: none !important;
+  background: var(--relics-paper) !important;
+  color: #1b1416 !important;
+  border: 0 !important;
+  border-left: 3px solid var(--relics-red) !important;
+  border-radius: 2px !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,.5) !important;
+}
+
+findbar { background: var(--relics-panel) !important; color: var(--relics-paper) !important; border-top: 1px solid var(--relics-red) !important; }
+#sidebar-box, #sidebar-main, #sidebar-header { background: var(--relics-panel) !important; color: var(--relics-paper) !important; }
+#tabbrowser-tabpanels, #appcontent { background: var(--relics-ink) !important; }
+
+/* ================================ motion ================================ */
+@keyframes relics-spark { from { background-position: -40px 0, 0 0; } to { background-position: calc(100% + 40px) 0, 0 0; } }
+@keyframes relics-thread-in { from { background-size: 0% 2px, auto; } }
+@keyframes relics-spin { to { transform: rotate(360deg); } }
+@keyframes relics-sweep { from { background-position: -60% 0; } to { background-position: 160% 0; } }
+@keyframes relics-eq {
+  0%   { background-size: 4px 30%, 4px 90%, 4px 50%, 4px 70%; }
+  33%  { background-size: 4px 90%, 4px 40%, 4px 100%, 4px 30%; }
+  66%  { background-size: 4px 50%, 4px 100%, 4px 30%, 4px 90%; }
+  100% { background-size: 4px 80%, 4px 60%, 4px 70%, 4px 50%; }
+}
+@keyframes relics-dl-done {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(233,180,90,.85); }
+  25%  { transform: translateY(-4px) scale(1.25) rotate(-8deg); }
+  50%  { transform: translateY(0) scale(.92) rotate(4deg); }
+  70%  { transform: scale(1.06); }
+  100% { transform: none; box-shadow: 0 0 0 16px rgba(233,180,90,0); }
+}
+@keyframes relics-burn { from { background-position: 0 0, 0 0; } to { background-position: 0 0, 300% 0; } }
+@keyframes relics-breathe-text { 0%, 100% { opacity: .55; } 50% { opacity: .9; } }
+@keyframes relics-wobble { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+@keyframes relics-pop { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
+@keyframes relics-row-in { from { opacity: 0; transform: translateY(-4px); } }
+@keyframes relics-twitch {
+  0%, 88%, 100% { transform: none; }
+  90% { transform: rotate(-14deg) scale(1.15); }
+  93% { transform: rotate(10deg) scale(1.1); }
+  96% { transform: rotate(-4deg); }
+}
+/* bookmark icon moves */
+@keyframes relics-ic-twinkle { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(45deg) scale(1.3); } 100% { transform: rotate(90deg) scale(1); } }
+@keyframes relics-ic-chat { 0%, 100% { transform: translateY(0); } 30% { transform: translateY(-3px); } 60% { transform: translateY(0); } 80% { transform: translateY(-1px); } }
+@keyframes relics-ic-wobble { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-14deg); } 45% { transform: rotate(10deg); } 70% { transform: rotate(-5deg); } }
+@keyframes relics-ic-drop { 0% { transform: translateY(-6px) rotate(-90deg); opacity: .3; } 60% { transform: translateY(1px) rotate(0); opacity: 1; } 80% { transform: translateY(-1px); } 100% { transform: none; } }
+@keyframes relics-ic-spin { from { transform: rotate(0) scale(1); } 50% { transform: rotate(90deg) scale(1.25); } to { transform: rotate(180deg) scale(1); } }
+@keyframes relics-ic-crown { 0%, 100% { transform: none; } 40% { transform: translateY(-3px) scale(1.2); filter: drop-shadow(0 0 4px rgba(233,180,90,.9)); } }
+@keyframes relics-ic-knight { 0%, 100% { transform: none; } 30% { transform: translate(0, -4px); } 60% { transform: translate(4px, -4px); } 85% { transform: translate(4px, 0); } }
+@keyframes relics-ic-waddle { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-10deg); } 40% { transform: rotate(10deg); } 60% { transform: rotate(-8deg); } 80% { transform: rotate(6deg); } }
+@keyframes relics-ic-dots { 0%, 100% { transform: scaleX(1); } 40% { transform: scaleX(.6); } 70% { transform: scaleX(1.2); } }
+
+/* on/off switch: about:config -> relics.freeze = true */
+@media -moz-pref("relics.freeze") {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #navigator-toolbox::after, #TabsToolbar-customization-target::before,
+  .urlbarView-row, .tabbrowser-tab .tab-stack::after,
+  #urlbar .urlbar-input-box::before { animation: none !important; }
+}
+
+/* =====================================================================
+   EXTRAS
+   ===================================================================== */
+/* now and then the crow flies across the bookmarks bar, rising and dipping */
+#PersonalToolbar { position: relative; overflow: visible !important; }
+#PersonalToolbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -4px;
+  width: 40px;
+  height: 28px;
+  z-index: 5;
+  background: url("assets/crow-fly.svg") no-repeat;
+  pointer-events: none;
+  animation: relics-crow-pass 70s linear infinite, relics-crow-glide 3s ease-in-out infinite;
+}
+@keyframes relics-crow-pass {
+  0%           { transform: translateX(-60px); opacity: 1; }
+  14%          { transform: translateX(100vw); opacity: 1; }
+  14.01%, 100% { transform: translateX(100vw); opacity: 0; }
+}
+@keyframes relics-crow-glide {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -6px; }
+}
+@media -moz-pref("relics.freeze") {
+  #PersonalToolbar::after { display: none !important; }
+}
+
+/* private windows: blood moon - the lantern light turns red */
+:root[privatebrowsingmode="temporary"] {
+  --relics-ink:     #120708;
+  --relics-panel:   #1c0b0d;
+  --relics-raise:   #2a1013;
+  --relics-line:    #4a1b21;
+  --relics-lantern: #ff3b3b;
+  --relics-gold:    #ff7a6b;
+}

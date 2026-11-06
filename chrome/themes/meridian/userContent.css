@@ -1,0 +1,73 @@
+/* ==========================================================
+   M E R I D I A N  —  userContent.css
+   The clock is drawn over the new tab by chrome.js; the page
+   underneath only has to be the same night blue.
+   ========================================================== */
+@-moz-document url("about:newtab"), url("about:home"), url("about:privatebrowsing") {
+  :root {
+    --newtab-background-color: #070a13 !important;
+    --newtab-background-color-secondary: #0b0f1b !important;
+    --newtab-text-primary-color: #e6dcc4 !important;
+    --in-content-page-background: #070a13 !important;
+  }
+  html, body { background: #070a13 !important; color: #e6dcc4 !important; }
+  .logo-and-wordmark-wrapper, .logo-and-wordmark { display: none !important; }
+}
+/* the private page's text would sit behind the clock. Search from the address bar. */
+@-moz-document url("about:privatebrowsing") {
+  body > * { visibility: hidden !important; }
+}
+
+/* ---------- can't connect: a compass that has lost north ---------- */
+@-moz-document url-prefix("about:neterror") {
+  :root {
+    --in-content-page-background: #070a13 !important;
+    --in-content-page-color: #e6dcc4 !important;
+    --in-content-text-color: #e6dcc4 !important;
+    --in-content-deemphasized-text: #8e8a7c !important;
+    --in-content-link-color: #c9a86a !important;
+  }
+  body { background: #070a13 !important; color: #e6dcc4 !important; }
+  body::before {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: 7vh auto 0;
+    border-radius: 50%;
+    border: 1.5px solid #c9a86a;
+    background:
+      linear-gradient(#c8324a, #c8324a) 50% 22% / 3px 28% no-repeat,
+      linear-gradient(#c9a86a, #c9a86a) 50% 78% / 3px 28% no-repeat,
+      repeating-conic-gradient(rgb(201 168 106 / .55) 0 1deg, transparent 1deg 30deg);
+    animation: meridian-lost 7s ease-in-out infinite;
+  }
+  @keyframes meridian-lost {
+    0%   { transform: rotate(-70deg); }
+    35%  { transform: rotate(120deg); }
+    60%  { transform: rotate(40deg); }
+    100% { transform: rotate(290deg); }
+  }
+  body::after {
+    content: "Bearings lost. Press F5 to take another reading.";
+    display: block;
+    margin-top: 18px;
+    text-align: center;
+    font: italic 19px "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    color: #c9a86a;
+    order: -1;
+  }
+  .container { margin-top: 16px !important; }
+  .title { background-image: none !important; padding-inline-start: 0 !important; margin-inline-start: 0 !important; }
+  .title-text { color: #f0d9a6 !important; font: 300 24px "Palatino Linotype", "Book Antiqua", Georgia, serif !important; }
+  button { border-radius: 3px !important; }
+  button.primary, #tryAgain { background: #c9a86a !important; color: #070a13 !important; border: none !important; }
+  @media -moz-pref("meridian.freeze") {
+    body::before { animation: none !important; }
+  }
+}
+
+/* ---------- web pages: brass scrollbars ---------- */
+@-moz-document url-prefix("http://"), url-prefix("https://") {
+  :root { scrollbar-color: #7d6a44 transparent; }
+}

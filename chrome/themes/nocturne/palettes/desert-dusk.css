@@ -1,0 +1,12 @@
+/* Desert Dusk — sandstone, terracotta and an oasis */
+:root {
+  --nc-bg:        #17100c;
+  --nc-surface:   #241914;
+  --nc-surface-2: #32231b;
+  --nc-text:      #fbf1e6;
+  --nc-muted:     #b39b86;
+  --nc-main:      #e9a46a;   /* hover, focus, glass tint */
+  --nc-hot:       #e76f51;   /* active tab glow, close button */
+  --nc-cool:      #2a9d8f;   /* third aurora light */
+  --nc-star:      #f4d35e;   /* bookmarked star */
+}

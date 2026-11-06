@@ -1,0 +1,12 @@
+/* Toxic — radioactive lab: acid lime, ultraviolet, warning yellow */
+:root {
+  --nc-bg:        #080b04;
+  --nc-surface:   #121808;
+  --nc-surface-2: #1b230d;
+  --nc-text:      #f4ffe0;
+  --nc-muted:     #9bab7d;
+  --nc-main:      #b8ff3c;   /* hover, focus, glass tint */
+  --nc-hot:       #9d4dff;   /* active tab glow, close button */
+  --nc-cool:      #ffe600;   /* third aurora light */
+  --nc-star:      #ffe600;   /* bookmarked star */
+}

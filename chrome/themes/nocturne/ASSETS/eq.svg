@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" viewBox="0 0 14 12">
+<style>
+  rect { transform-box: fill-box; transform-origin: bottom; animation: b .9s ease-in-out infinite; }
+  .b2 { animation-duration: .7s; animation-delay: -.3s; } .b3 { animation-duration: 1.1s; animation-delay: -.6s; }
+  @keyframes b { 0%,100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) { rect { animation: none; } }
+</style>
+<rect x="0.5" y="0" width="3" height="12" rx="1.5" fill="#ffb3d9"/>
+<rect class="b2" x="5.5" y="0" width="3" height="12" rx="1.5" fill="#b3e5ff"/>
+<rect class="b3" x="10.5" y="0" width="3" height="12" rx="1.5" fill="#d9c2ff"/>
+</svg>

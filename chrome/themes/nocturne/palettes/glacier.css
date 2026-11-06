@@ -1,0 +1,12 @@
+/* Glacier — arctic night: ice blue, lavender aurora, mint */
+:root {
+  --nc-bg:        #070d16;
+  --nc-surface:   #0f1a28;
+  --nc-surface-2: #172638;
+  --nc-text:      #eef6ff;
+  --nc-muted:     #8ca3bd;
+  --nc-main:      #7fd8ff;   /* hover, focus, glass tint */
+  --nc-hot:       #c8a8ff;   /* active tab glow, close button */
+  --nc-cool:      #a5ffe0;   /* third aurora light */
+  --nc-star:      #fff3b0;   /* bookmarked star */
+}

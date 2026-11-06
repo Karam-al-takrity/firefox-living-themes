@@ -1,0 +1,2 @@
+/* Same chain as gate-chrome.css, for the page styles. */
+@import url("gate-content-2.css") not -moz-pref("ame.active");

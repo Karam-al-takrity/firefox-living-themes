@@ -1,0 +1,2 @@
+/* Last link of the "no other theme is on" chain (see gate-chrome.css). */
+@import url("userChrome.css") not -moz-pref("meridian.active");

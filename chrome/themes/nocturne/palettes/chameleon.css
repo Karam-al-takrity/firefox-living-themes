@@ -1,0 +1,26 @@
+/* Chameleon — LIVING palette: cycles through the whole rainbow
+   The whole browser drifts through these colors every 120s. */
+@property --nc-bg   { syntax: "<color>"; inherits: true; initial-value: #0a0a10; }
+@property --nc-main { syntax: "<color>"; inherits: true; initial-value: #00f5d4; }
+@property --nc-hot  { syntax: "<color>"; inherits: true; initial-value: #ff4fa3; }
+@property --nc-cool { syntax: "<color>"; inherits: true; initial-value: #0096ff; }
+
+:root {
+  --nc-bg:        #0a0a10;
+  --nc-surface:   color-mix(in srgb, var(--nc-bg), #fff 5%);
+  --nc-surface-2: color-mix(in srgb, var(--nc-bg), #fff 10%);
+  --nc-text:      #f4f2f8;
+  --nc-muted:     #9a95a8;
+  --nc-main:      #00f5d4;
+  --nc-hot:       #ff4fa3;
+  --nc-cool:      #0096ff;
+  --nc-star:      #ffe066;
+  --nc-palette-anim: nc-palette 120s ease-in-out infinite;
+}
+
+@keyframes nc-palette {
+  0%, 100% { --nc-bg: #0a0a10;  --nc-main: #00f5d4;  --nc-hot: #ff4fa3;  --nc-cool: #0096ff; }
+  25%      { --nc-bg: #0b0d08;  --nc-main: #b8ff3c;  --nc-hot: #ff6b35;  --nc-cool: #00e5ff; }
+  50%      { --nc-bg: #100810;  --nc-main: #ff2e88; --nc-hot: #ffd23f; --nc-cool: #7f5cff; }
+  75%      { --nc-bg: #0f0a06; --nc-main: #ffb000; --nc-hot: #00f5d4; --nc-cool: #ff2e88; }
+}

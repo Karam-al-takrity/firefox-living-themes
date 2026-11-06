@@ -1,0 +1,15 @@
+/* Theme switcher setup. Each theme loads only while it's the chosen one, so switching
+   is live (no restart). The palette button / Ctrl+Alt+T (switcher) flips the prefs:
+     relics.active = true  -> relics
+     ame.active    = true  -> ame
+     manga.active  = true  -> manga
+     meridian.active = true -> meridian
+     none of them          -> nocturne (the default)
+   The switcher keeps exactly one <name>.active true. Keep the switcher line first:
+   the theme loader looks at the first import to know what to run. */
+@import url("themes/switcher/userChrome.css");
+@import url("themes/relics/userChrome.css") -moz-pref("relics.active");
+@import url("themes/ame/userChrome.css") -moz-pref("ame.active");
+@import url("themes/manga/userChrome.css") -moz-pref("manga.active");
+@import url("themes/meridian/userChrome.css") -moz-pref("meridian.active");
+@import url("themes/nocturne/gate-chrome.css") not -moz-pref("relics.active");

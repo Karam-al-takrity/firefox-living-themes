@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- Runs the Meridian clock outside Firefox, for tuning. ?intro=.5 freezes the drawing-in at that point. -->
+<meta charset="utf-8">
+<title>Meridian preview</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { width: 100%; height: 100%; display: block; }</style>
+<canvas id="c"></canvas>
+<script src="../chrome/themes/meridian/assets/clock.js"></script>
+<script>
+  const canvas = document.getElementById("c");
+  const clock = createMeridian(canvas);
+  const qs = new URLSearchParams(location.search);
+  const fixed = qs.has("intro") ? +qs.get("intro") : null;
+  const t0 = performance.now();
+  (function frame(now) {
+    clock.resize(innerWidth, innerHeight);
+    clock.draw(now, new Date(), fixed !== null ? fixed : Math.min(1, (now - t0) / 2800));
+    requestAnimationFrame(frame);
+  })(t0);
+  window.bench = (n = 60) => { const a = performance.now(); for (let i = 0; i < n; i++) clock.draw(a + i * 16, new Date(), 1); return +((performance.now() - a) / n).toFixed(2); };
+</script>

@@ -1,0 +1,56 @@
+/* =====================================================================
+   SWITCHER - userChrome.css
+   Styles for the theme switcher button and menu (made by chrome.js).
+   Theme-neutral: uses whatever colours the active theme sets.
+   ===================================================================== */
+
+#theme-switcher-button { align-self: center !important; }
+#theme-switcher-button > .toolbarbutton-icon {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  padding: 0 !important;
+  transition: transform .4s cubic-bezier(.34, 1.56, .64, 1) !important;
+}
+#theme-switcher-button:hover > .toolbarbutton-icon { transform: rotate(-18deg) scale(1.12); }
+#theme-switcher-button[open] > .toolbarbutton-icon { transform: rotate(-40deg) scale(1.1); }
+#theme-switcher-button > .toolbarbutton-menu-dropmarker,
+#theme-switcher-button > .toolbarbutton-text { display: none !important; }
+
+#theme-switcher-popup .theme-switcher-header {
+  font-size: .8em;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .6;
+}
+#theme-switcher-popup .theme-switcher-theme .menu-iconic-icon,
+#theme-switcher-popup .theme-switcher-theme .menu-icon {
+  width: 18px !important;
+  height: 18px !important;
+}
+#theme-switcher-popup .theme-switcher-theme .menu-accel,
+#theme-switcher-popup .theme-switcher-theme .menu-accel-container { opacity: .55; font-size: .9em; margin-inline-start: 18px !important; }
+#theme-switcher-popup .theme-switcher-theme[current] { font-weight: 600; }
+#theme-switcher-popup .theme-switcher-theme[current]::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-inline-start: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  align-self: center;
+}
+
+/* a short flash across the browser when the theme changes */
+:root[theme-switching] #navigator-toolbox,
+:root[theme-switching] #tabbrowser-tabpanels {
+  animation: switcher-swap .75s ease-out;
+}
+@keyframes switcher-swap {
+  0%   { filter: brightness(1.7) saturate(1.4) blur(2px); }
+  100% { filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[theme-switching] #navigator-toolbox,
+  :root[theme-switching] #tabbrowser-tabpanels { animation: none !important; }
+}

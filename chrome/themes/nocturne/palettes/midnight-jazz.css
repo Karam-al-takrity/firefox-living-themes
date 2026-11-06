@@ -1,0 +1,12 @@
+/* Midnight Jazz — brass horns, red velvet, smoky blue */
+:root {
+  --nc-bg:        #0d0b08;
+  --nc-surface:   #1a1611;
+  --nc-surface-2: #26201a;
+  --nc-text:      #f6efe4;
+  --nc-muted:     #a89b88;
+  --nc-main:      #d4a373;   /* hover, focus, glass tint */
+  --nc-hot:       #c1121f;   /* active tab glow, close button */
+  --nc-cool:      #457b9d;   /* third aurora light */
+  --nc-star:      #e9c46a;   /* bookmarked star */
+}

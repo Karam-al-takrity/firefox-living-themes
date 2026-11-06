@@ -1,0 +1,12 @@
+/* Forest Spirit — fireflies in a mossy forest at night */
+:root {
+  --nc-bg:        #0a120c;
+  --nc-surface:   #132017;
+  --nc-surface-2: #1c2d21;
+  --nc-text:      #effbea;
+  --nc-muted:     #94ab90;
+  --nc-main:      #7ee081;   /* hover, focus, glass tint */
+  --nc-hot:       #ffd6a5;   /* active tab glow, close button */
+  --nc-cool:      #9bf6ff;   /* third aurora light */
+  --nc-star:      #fdffb6;   /* bookmarked star */
+}

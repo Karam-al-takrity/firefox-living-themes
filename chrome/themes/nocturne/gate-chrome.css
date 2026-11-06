@@ -1,0 +1,4 @@
+/* Nocturne is the default: it loads only while no other theme is on. Media queries
+   can only test one pref per step here, so it's a chain: the top-level file checks
+   relics, this file checks ame, gate-chrome-2.css manga, gate-chrome-3.css meridian. */
+@import url("gate-chrome-2.css") not -moz-pref("ame.active");

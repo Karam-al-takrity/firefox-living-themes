@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#04060d"/><stop offset=".35" stop-color="#0b1022"/>
+    <stop offset=".6" stop-color="#1c1838"/><stop offset=".75" stop-color="#3a2246"/><stop offset="1" stop-color="#1a1426"/>
+  </linearGradient>
+  <radialGradient id="moon"><stop offset="0" stop-color="#cfd8ff" stop-opacity=".35"/><stop offset="1" stop-color="#cfd8ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="flash"><stop offset="0" stop-color="#e8ecff" stop-opacity=".9"/><stop offset="1" stop-color="#e8ecff" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#s)"/>
+<circle cx="1220" cy="150" r="190" fill="url(#moon)"/>
+<g fill="#2b2445" fill-opacity=".8">
+  <g><animateTransform attributeName="transform" type="translate" values="-60 0;60 0;-60 0" dur="90s" repeatCount="indefinite"/>
+    <path d="M100 210 q200 -50 420 -10 q160 -30 330 0 q-200 40 -420 30 q-200 10 -330 -20 z"/>
+    <path d="M900 120 q170 -40 380 -6 q130 -16 260 6 q-150 30 -330 24 q-170 8 -310 -24 z"/></g>
+  <g><animateTransform attributeName="transform" type="translate" values="40 0;-40 0;40 0" dur="120s" repeatCount="indefinite"/>
+    <path d="M300 330 q260 -40 520 -6 q200 -18 420 6 q-260 40 -520 26 q-240 6 -420 -26 z" fill="#3a2a52" fill-opacity=".7"/></g>
+</g>
+<ellipse cx="420" cy="180" rx="360" ry="120" fill="url(#flash)" opacity="0">
+  <animate attributeName="opacity" values="0;0;.8;.1;.6;0;0" keyTimes="0;.9;.905;.91;.915;.93;1" dur="23s" repeatCount="indefinite"/>
+</ellipse>
+</svg>

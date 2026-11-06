@@ -1,0 +1,26 @@
+/* Northern Lights — LIVING palette: green, teal and violet curtains of light
+   The whole browser drifts through these colors every 60s. */
+@property --nc-bg   { syntax: "<color>"; inherits: true; initial-value: #03100d; }
+@property --nc-main { syntax: "<color>"; inherits: true; initial-value: #39ff88; }
+@property --nc-hot  { syntax: "<color>"; inherits: true; initial-value: #ff5fa2; }
+@property --nc-cool { syntax: "<color>"; inherits: true; initial-value: #00e5ff; }
+
+:root {
+  --nc-bg:        #03100d;
+  --nc-surface:   color-mix(in srgb, var(--nc-bg), #fff 5%);
+  --nc-surface-2: color-mix(in srgb, var(--nc-bg), #fff 10%);
+  --nc-text:      #effbf6;
+  --nc-muted:     #8fb0a5;
+  --nc-main:      #39ff88;
+  --nc-hot:       #ff5fa2;
+  --nc-cool:      #00e5ff;
+  --nc-star:      #fff3b0;
+  --nc-palette-anim: nc-palette 60s ease-in-out infinite;
+}
+
+@keyframes nc-palette {
+  0%, 100% { --nc-bg: #03100d;  --nc-main: #39ff88;  --nc-hot: #ff5fa2;  --nc-cool: #00e5ff; }
+  25%      { --nc-bg: #030c12;  --nc-main: #00e5ff;  --nc-hot: #39ff88;  --nc-cool: #b07cff; }
+  50%      { --nc-bg: #08061a;  --nc-main: #b07cff; --nc-hot: #00e5ff; --nc-cool: #39ff88; }
+  75%      { --nc-bg: #04100a; --nc-main: #7dffb2; --nc-hot: #b07cff; --nc-cool: #4dc9ff; }
+}

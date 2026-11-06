@@ -1,0 +1,12 @@
+/* Matcha Rose — calm tea garden: soft matcha green, rose petals, cream */
+:root {
+  --nc-bg:        #0e120d;
+  --nc-surface:   #182016;
+  --nc-surface-2: #222d1f;
+  --nc-text:      #f3f6ec;
+  --nc-muted:     #9daa92;
+  --nc-main:      #a7d66b;   /* hover, focus, glass tint */
+  --nc-hot:       #ff8fab;   /* active tab glow, close button */
+  --nc-cool:      #f6d28b;   /* third aurora light */
+  --nc-star:      #ffd166;   /* bookmarked star */
+}

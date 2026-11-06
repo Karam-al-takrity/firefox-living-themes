@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0d15"/><stop offset="1" stop-color="#06070c"/></linearGradient>
+  <linearGradient id="sill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a22"/><stop offset=".2" stop-color="#241812"/><stop offset="1" stop-color="#120c0a"/></linearGradient>
+  <radialGradient id="spill" cx=".5" cy="0" r=".9"><stop offset="0" stop-color="#ff4f9a" stop-opacity=".10"/><stop offset="1" stop-color="#3de0ff" stop-opacity="0"/></radialGradient>
+</defs>
+<path fill-rule="evenodd" fill="url(#wall)" d="M0 0 H1600 V900 H0 Z M116 86 H789 V219 H116 Z M811 86 H1484 V219 H811 Z M116 239 H789 V734 H116 Z M811 239 H1484 V734 H811 Z"/>
+<!-- black steel frame -->
+<g fill="#13161f">
+  <rect x="90" y="60" width="1420" height="26"/><rect x="90" y="734" width="1420" height="10"/>
+  <rect x="90" y="60" width="26" height="684"/><rect x="1484" y="60" width="26" height="684"/>
+  <rect x="789" y="86" width="22" height="648"/><rect x="116" y="219" width="1368" height="20"/>
+</g>
+<g fill="none" stroke="#3de0ff" stroke-opacity=".18" stroke-width="1.5">
+  <path d="M116 86 V734 M789 86 V734 M811 86 V734 M1484 86 V734 M116 239 H1484 M116 219 H1484"/>
+</g>
+<!-- sill -->
+<rect x="60" y="744" width="1480" height="40" fill="url(#sill)"/>
+<rect x="60" y="744" width="1480" height="3" fill="#5a4234" opacity=".7"/>
+<rect x="60" y="784" width="1480" height="116" fill="url(#spill)"/>
+<!-- string lights along the transom -->
+<path d="M116 248 L 130 248 L 182 255.8 L 234 257.7 L 286 252.3 L 338 243.6 L 390 238.2 L 442 240.3 L 494 248.2 L 546 255.9 L 598 257.7 L 650 252.1 L 702 243.4 L 754 238.2 L 806 240.4 L 858 248.3 L 910 256 L 962 257.7 L 1014 252 L 1066 243.3 L 1118 238.2 L 1170 240.5 L 1222 248.5 L 1274 256.1 L 1326 257.6 L 1378 251.8 L 1430 243.1 L 1484 248" stroke="#1a1410" stroke-width="1.5" fill="none"/>
+<circle cx='130' cy='248' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.8s' repeatCount='indefinite'/></circle><circle cx='130' cy='248' r='9' fill='#ffb35c' opacity='.18'/><circle cx='182' cy='255.8' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.7s' repeatCount='indefinite'/></circle><circle cx='182' cy='255.8' r='9' fill='#ffb35c' opacity='.18'/><circle cx='234' cy='257.7' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.7s' repeatCount='indefinite'/></circle><circle cx='234' cy='257.7' r='9' fill='#ffb35c' opacity='.18'/><circle cx='286' cy='252.3' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.8s' repeatCount='indefinite'/></circle><circle cx='286' cy='252.3' r='9' fill='#ffb35c' opacity='.18'/><circle cx='338' cy='243.6' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.6s' repeatCount='indefinite'/></circle><circle cx='338' cy='243.6' r='9' fill='#ffb35c' opacity='.18'/><circle cx='390' cy='238.2' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.4s' repeatCount='indefinite'/></circle><circle cx='390' cy='238.2' r='9' fill='#ffb35c' opacity='.18'/><circle cx='442' cy='240.3' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='3.1s' repeatCount='indefinite'/></circle><circle cx='442' cy='240.3' r='9' fill='#ffb35c' opacity='.18'/><circle cx='494' cy='248.2' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.2s' repeatCount='indefinite'/></circle><circle cx='494' cy='248.2' r='9' fill='#ffb35c' opacity='.18'/><circle cx='546' cy='255.9' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.7s' repeatCount='indefinite'/></circle><circle cx='546' cy='255.9' r='9' fill='#ffb35c' opacity='.18'/><circle cx='598' cy='257.7' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.7s' repeatCount='indefinite'/></circle><circle cx='598' cy='257.7' r='9' fill='#ffb35c' opacity='.18'/><circle cx='650' cy='252.1' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='3.3s' repeatCount='indefinite'/></circle><circle cx='650' cy='252.1' r='9' fill='#ffb35c' opacity='.18'/><circle cx='702' cy='243.4' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.9s' repeatCount='indefinite'/></circle><circle cx='702' cy='243.4' r='9' fill='#ffb35c' opacity='.18'/><circle cx='754' cy='238.2' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.7s' repeatCount='indefinite'/></circle><circle cx='754' cy='238.2' r='9' fill='#ffb35c' opacity='.18'/><circle cx='806' cy='240.4' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.8s' repeatCount='indefinite'/></circle><circle cx='806' cy='240.4' r='9' fill='#ffb35c' opacity='.18'/><circle cx='858' cy='248.3' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.7s' repeatCount='indefinite'/></circle><circle cx='858' cy='248.3' r='9' fill='#ffb35c' opacity='.18'/><circle cx='910' cy='256' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.2s' repeatCount='indefinite'/></circle><circle cx='910' cy='256' r='9' fill='#ffb35c' opacity='.18'/><circle cx='962' cy='257.7' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.6s' repeatCount='indefinite'/></circle><circle cx='962' cy='257.7' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1014' cy='252' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='3.3s' repeatCount='indefinite'/></circle><circle cx='1014' cy='252' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1066' cy='243.3' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.7s' repeatCount='indefinite'/></circle><circle cx='1066' cy='243.3' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1118' cy='238.2' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.1s' repeatCount='indefinite'/></circle><circle cx='1118' cy='238.2' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1170' cy='240.5' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.6s' repeatCount='indefinite'/></circle><circle cx='1170' cy='240.5' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1222' cy='248.5' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.4s' repeatCount='indefinite'/></circle><circle cx='1222' cy='248.5' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1274' cy='256.1' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='3.1s' repeatCount='indefinite'/></circle><circle cx='1274' cy='256.1' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1326' cy='257.6' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.1s' repeatCount='indefinite'/></circle><circle cx='1326' cy='257.6' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1378' cy='251.8' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='2.3s' repeatCount='indefinite'/></circle><circle cx='1378' cy='251.8' r='9' fill='#ffb35c' opacity='.18'/><circle cx='1430' cy='243.1' r='3.4' fill='#ffcf8a'><animate attributeName='opacity' values='1;.35;1' dur='1.6s' repeatCount='indefinite'/></circle><circle cx='1430' cy='243.1' r='9' fill='#ffb35c' opacity='.18'/>
+<!-- mug with steam -->
+<g transform="translate(300 744)">
+  <rect x="-22" y="-40" width="40" height="40" rx="5" fill="#1d2233"/><path d="M18 -32 c 14 0, 14 20, 0 20" stroke="#1d2233" stroke-width="6" fill="none"/>
+  <rect x="-22" y="-40" width="40" height="5" fill="#2c3452"/>
+  <g stroke="#9aa6c8" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".6">
+    <path d="M-8 -48 c -6 -8, 6 -14, 0 -24"><animate attributeName="opacity" values="0;.7;0" dur="3.4s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 4;0 -12" dur="3.4s" repeatCount="indefinite"/></path>
+    <path d="M6 -48 c -6 -8, 6 -14, 0 -24"><animate attributeName="opacity" values="0;.7;0" dur="3.4s" begin="1.7s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 4;0 -12" dur="3.4s" begin="1.7s" repeatCount="indefinite"/></path>
+  </g>
+</g>
+<!-- books -->
+<g transform="translate(1150 744)"><rect x="0" y="-14" width="96" height="14" fill="#2a2140"/><rect x="6" y="-26" width="86" height="12" fill="#3a2230"/><rect x="2" y="-36" width="92" height="10" fill="#1f2b3a"/></g>
+<!-- plant -->
+<g transform="translate(1340 744)">
+  <path d="M-24 0 L -20 -34 L 20 -34 L 24 0 Z" fill="#2b1f1a"/>
+  <g fill="#0c1410"><animateTransform attributeName="transform" type="rotate" values="-1 0 -34;1.5 0 -34;-1 0 -34" dur="7s" repeatCount="indefinite"/>
+    <path d="M0 -34 C -30 -60, -40 -90, -26 -120 C -14 -90, -6 -60, 0 -34 Z"/><path d="M0 -34 C 26 -56, 44 -84, 36 -116 C 20 -88, 10 -60, 0 -34 Z"/>
+    <path d="M0 -34 C -8 -70, -2 -110, 10 -140 C 12 -100, 8 -66, 0 -34 Z"/><path d="M0 -34 C -40 -40, -60 -54, -70 -70 C -44 -62, -22 -50, 0 -34 Z"/></g>
+</g>
+<!-- the cat, watching the rain -->
+<g transform="translate(560 744) scale(1.25)">
+  <path d="M-34 0 C -40 -30, -30 -62, -10 -70 L -14 -92 L -2 -78 L 8 -78 L 16 -94 L 16 -70 C 34 -60, 40 -30, 34 0 Z" fill="#05060a"/>
+  <path d="M-30 -40 C -24 -58, -8 -66, 4 -66" stroke="#3de0ff" stroke-opacity=".25" stroke-width="1.5" fill="none"/>
+  <g><animateTransform attributeName="transform" type="rotate" values="0 30 -4;10 30 -4;-4 30 -4;0 30 -4" dur="5.5s" repeatCount="indefinite"/>
+    <path d="M30 -4 C 60 -2, 70 -20, 62 -40 C 58 -50, 66 -56, 72 -52" stroke="#05060a" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+</g>
+</svg>

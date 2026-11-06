@@ -1,0 +1,12 @@
+/* Cyber Noir — black glass, warning yellow, one red laser */
+:root {
+  --nc-bg:        #070707;
+  --nc-surface:   #121212;
+  --nc-surface-2: #1c1c1c;
+  --nc-text:      #f5f5f5;
+  --nc-muted:     #8c8c8c;
+  --nc-main:      #fcee0a;   /* hover, focus, glass tint */
+  --nc-hot:       #ff003c;   /* active tab glow, close button */
+  --nc-cool:      #00f0ff;   /* third aurora light */
+  --nc-star:      #fcee0a;   /* bookmarked star */
+}

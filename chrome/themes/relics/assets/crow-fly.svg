@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="28" viewBox="0 0 40 28">
+<style>
+  .up { animation: up .36s steps(1) infinite; } .down { animation: down .36s steps(1) infinite; }
+  @keyframes up { 50% { opacity: 0; } } @keyframes down { 0% { opacity: 0; } 50% { opacity: 1; } }
+  .bob { animation: bob .72s ease-in-out infinite; } @keyframes bob { 50% { transform: translateY(2px); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+<g class="bob" fill="#07060a" stroke="#d99a8a" stroke-opacity=".45" stroke-width=".7">
+  <path class="up" d="M14 14 Q16 2 6 0 Q18 4 21 13Z M22 13 Q26 3 34 1 Q28 8 25 14Z"/>
+  <path class="down" d="M14 15 Q10 25 3 27 Q14 24 20 16Z M22 16 Q28 24 35 26 Q28 20 25 15Z"/>
+  <path d="M8 16 Q14 11 24 13 Q31 14 34 16 L39 15.5 L34 18 Q27 21 18 19 Q11 20 8 16Z"/>
+  <path d="M8 16 L1 13 L3 17 L1 20Z"/>
+  <circle cx="31.5" cy="15.3" r=".9" fill="#c1121f" stroke="none"/>
+</g>
+</svg>

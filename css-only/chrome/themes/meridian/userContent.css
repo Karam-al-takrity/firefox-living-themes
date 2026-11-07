@@ -10,7 +10,10 @@
     --newtab-text-primary-color: #e6dcc4 !important;
     --in-content-page-background: #070a13 !important;
   }
-  html, body { background: #070a13 !important; color: #e6dcc4 !important; }
+  /* only the page's root gets the colour: a body background would paint over the
+     instrument below, which sits behind the page's content */
+  html { background: #070a13 !important; }
+  body { background: transparent !important; color: #e6dcc4 !important; }
   .logo-and-wordmark-wrapper, .logo-and-wordmark { display: none !important; }
   /* the instrument, drawn by assets/meridian.svg */
   body::before {

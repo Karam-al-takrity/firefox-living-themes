@@ -71,7 +71,10 @@ newtab_old = """  html, body { background: #070a13 !important; color: #e6dcc4 !i
 @-moz-document url("about:privatebrowsing") {
   body > * { visibility: hidden !important; }
 }"""
-newtab_new = """  html, body { background: #070a13 !important; color: #e6dcc4 !important; }
+newtab_new = """  /* only the page's root gets the colour: a body background would paint over the
+     instrument below, which sits behind the page's content */
+  html { background: #070a13 !important; }
+  body { background: transparent !important; color: #e6dcc4 !important; }
   .logo-and-wordmark-wrapper, .logo-and-wordmark { display: none !important; }
   /* the instrument, drawn by assets/meridian.svg */
   body::before {

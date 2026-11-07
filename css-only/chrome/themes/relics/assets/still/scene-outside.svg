@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0e030a"/>
+    <stop offset=".38" stop-color="#2e0814"/>
+    <stop offset=".6" stop-color="#6a1520"/>
+    <stop offset=".7" stop-color="#a8402c"/>
+    <stop offset=".78" stop-color="#3a0c14"/>
+    <stop offset="1" stop-color="#12040a"/>
+  </linearGradient>
+  <radialGradient id="moon" cx=".42" cy=".4">
+    <stop offset="0" stop-color="#fff6e6"/>
+    <stop offset=".65" stop-color="#f4cdb0"/>
+    <stop offset="1" stop-color="#d7826c"/>
+  </radialGradient>
+  <radialGradient id="halo">
+    <stop offset="0" stop-color="#ffc9a8" stop-opacity=".55"/>
+    <stop offset=".45" stop-color="#ff8a6a" stop-opacity=".18"/>
+    <stop offset="1" stop-color="#ff8a6a" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="gold">
+    <stop offset="0" stop-color="#ffd76a" stop-opacity=".9"/>
+    <stop offset="1" stop-color="#ffd76a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3a0d16"/>
+    <stop offset="1" stop-color="#12040a"/>
+  </linearGradient>
+</defs>
+
+<rect width="1600" height="900" fill="url(#sky)"/>
+
+<!-- stars -->
+<g fill="#ffe9dc">
+  <circle cx="610" cy="170" r="1.4"/><circle cx="700" cy="140" r="1"/><circle cx="1010" cy="160" r="1.2"/>
+  <circle cx="1060" cy="230" r="1"/><circle cx="560" cy="260" r="1.1"/><circle cx="760" cy="215" r="1.6"></circle>
+  <circle cx="1030" cy="120" r="1.5"></circle>
+  <circle cx="650" cy="300" r="1.2"></circle>
+</g>
+
+<!-- moon -->
+<circle cx="900" cy="300" r="300" fill="url(#halo)"></circle>
+<circle cx="900" cy="300" r="118" fill="url(#moon)"/>
+<g fill="#b8604e" opacity=".22"><circle cx="870" cy="270" r="20"/><circle cx="935" cy="330" r="13"/><circle cx="905" cy="255" r="8"/><circle cx="855" cy="335" r="9"/></g>
+
+<!-- thin clouds sliding across the moon -->
+<g fill="#1a0610" fill-opacity=".75">
+  <g>
+    <path d="M620 318 q120 -22 260 -6 q60 6 110 -2 q-40 18 -150 16 q-130 4 -220 -8 z"/>
+    <path d="M700 352 q90 -12 190 -2 q-70 12 -190 2 z" opacity=".7"/></g>
+  <g>
+    <path d="M760 248 q130 -18 250 -4 q-90 16 -250 4 z" opacity=".6"/></g>
+</g>
+
+<!-- far monolith (Clair Obscur) -->
+<path d="M598 600 L612 342 L640 330 L652 600 Z" fill="#2c0b17" opacity=".9"/>
+<text x="628" y="392" font-family="Georgia, serif" font-style="italic" font-size="17" fill="#f2d6a8" text-anchor="middle" opacity=".45">33</text>
+
+<!-- far mountains -->
+<path d="M480 600 L560 548 L620 566 L700 520 L780 556 L860 530 L940 566 L1010 528 L1080 552 L1140 536 L1200 600 Z" fill="#3e0f1c"/>
+
+<!-- golden tree on the far horizon (Elden Ring) --><g transform="translate(-60 25)">
+<circle cx="1052" cy="512" r="70" fill="url(#gold)" opacity=".7"></circle>
+<path d="M1052 540 L1052 512 M1052 520 l-10 -8 M1052 518 l10 -9" stroke="#e0a63a" stroke-width="2.4" fill="none"/>
+<g fill="#ffd76a"><circle cx="1052" cy="500" r="11"/><circle cx="1040" cy="506" r="8"/><circle cx="1064" cy="505" r="8"/><circle cx="1047" cy="493" r="7"/><circle cx="1058" cy="493" r="7"/></g>
+
+</g>
+<!-- near hills with a castle on the cliff (Sekiro) -->
+<path d="M460 640 L520 600 L600 610 L640 560 L700 556 L720 590 L800 600 L880 590 L960 612 L1040 596 L1140 620 L1180 640 Z" fill="#22070f"/>
+<g fill="#22070f">
+  <rect x="648" y="520" width="56" height="40"/>
+  <path d="M636 524 L716 524 L700 510 L652 510 Z"/>
+  <rect x="660" y="488" width="32" height="24"/>
+  <path d="M648 492 L704 492 L692 478 L660 478 Z"/>
+  <rect x="668" y="462" width="16" height="18"/>
+  <path d="M660 466 L692 466 L676 448 Z"/>
+</g>
+<g fill="#ffb35a">
+  <rect x="662" y="532" width="4" height="5"></rect>
+  <rect x="684" y="536" width="4" height="5"/>
+  <rect x="674" y="496" width="3" height="4"></rect>
+</g>
+
+<!-- lake with the moon's reflection -->
+<rect x="420" y="612" width="800" height="70" fill="url(#water)"/>
+<g stroke="#ffd9c0" stroke-linecap="round">
+  <line x1="872" y1="620" x2="928" y2="620" stroke-width="2"></line>
+  <line x1="860" y1="630" x2="940" y2="630" stroke-width="2"></line>
+  <line x1="880" y1="640" x2="920" y2="640" stroke-width="1.6"></line>
+  <line x1="866" y1="650" x2="934" y2="650" stroke-width="1.4"></line>
+  <line x1="886" y1="660" x2="914" y2="660" stroke-width="1.2"></line>
+</g>
+<path d="M420 672 L560 664 L700 676 L860 668 L1000 678 L1220 670 L1220 900 L420 900 Z" fill="#0c0306"/>
+
+<!-- two crows far away -->
+<g stroke="#0c0306" stroke-width="2.2" fill="none" stroke-linecap="round">
+  <g>
+    <path d="M600 230 q6 -6 12 0 q6 -6 12 0"/><path d="M630 214 q5 -5 10 0 q5 -5 10 0"/></g>
+</g>
+
+<!-- cherry branch reaching into the view, swaying -->
+<g transform="translate(-30 70)"><g>
+  
+  <path d="M1180 90 C 1100 120, 1040 150, 960 170 C 930 178, 900 196, 870 214 M1060 142 C 1040 170, 1036 196, 1020 220" stroke="#1a0a0c" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <g fill="#ffb3c6">
+    <circle cx="1100" cy="118" r="9"/><circle cx="1086" cy="132" r="7"/><circle cx="1040" cy="146" r="9"/><circle cx="1010" cy="160" r="8"/>
+    <circle cx="975" cy="166" r="9"/><circle cx="952" cy="180" r="7"/><circle cx="905" cy="198" r="8"/><circle cx="880" cy="210" r="7"/>
+    <circle cx="1036" cy="186" r="8"/><circle cx="1022" cy="212" r="7"/><circle cx="1118" cy="104" r="7"/>
+  </g>
+  <g fill="#ff8fab"><circle cx="1096" cy="120" r="3"/><circle cx="1038" cy="148" r="3"/><circle cx="973" cy="168" r="3"/><circle cx="903" cy="200" r="2.6"/><circle cx="1034" cy="188" r="2.6"/></g>
+</g>
+
+</g>
+<!-- petals falling outside -->
+<g fill="#ffb3c6">
+  
+  
+  
+</g>
+</svg>

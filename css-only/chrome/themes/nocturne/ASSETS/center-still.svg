@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="250" viewBox="0 0 820 250">
+<defs>
+  <linearGradient id="wm" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="820" y2="0" spreadMethod="repeat">
+    <stop offset="0" stop-color="#b3e5ff"/><stop offset=".33" stop-color="#ffb3d9"/>
+    <stop offset=".66" stop-color="#d9c2ff"/><stop offset="1" stop-color="#b3e5ff"/>
+  </linearGradient>
+  <filter id="wmglow" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="14"/></filter>
+</defs>
+<text x="418.0" y="112" text-anchor="middle" style="font: 200 92px 'Segoe UI Variable Display', 'Segoe UI', sans-serif; letter-spacing: 16px; fill: #ffb3d9; opacity: .35" filter="url(#wmglow)">nocturne</text>
+<text x="418.0" y="112" text-anchor="middle" style="font: 200 92px 'Segoe UI Variable Display', 'Segoe UI', sans-serif; letter-spacing: 16px; fill: url(#wm)">nocturne</text>
+<g transform="translate(30.0 160)">
+<style>
+  text { font-family: Consolas, "Cascadia Code", monospace; font-size: 19px; fill: #fdf6ff; }
+  .hud { font-size: 12px; fill: #ad9fbd; letter-spacing: .12em; }
+</style>
+<text x="380.0" y="27" text-anchor="middle" xml:space="preserve"><tspan fill="#b3e5ff">||</tspan> paused, saving power</text>
+<text class="hud" x="286" y="62" text-anchor="end">LVL 99</text>
+<rect x="300" y="53" width="160" height="10" rx="5" fill="#d9c2ff" fill-opacity=".18"/>
+<rect x="300" y="53" width="80" height="10" rx="5" fill="#b3e5ff"/>
+<text class="hud" x="474" y="62">XP</text>
+</g>
+</svg>

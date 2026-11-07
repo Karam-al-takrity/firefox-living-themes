@@ -1,0 +1,304 @@
+/* ==========================================================
+   M E R I D I A N  —  userChrome.css
+   Midnight blue and fine brass lines, like an engraved instrument.
+   Calm on purpose: small, precise movements, nothing shouting.
+   The clock on the new tab lives in chrome.js + assets/clock.js.
+
+   Prefs:  meridian.freeze  true = every animation stops
+   Private windows turn from brass to cold steel.
+   All custom properties are --meridian-*, all keyframes meridian-*.
+   ========================================================== */
+
+@import url("dock-icons.css");
+
+:root {
+  --meridian-night: #070a13;
+  --meridian-panel: #0b0f1b;
+  --meridian-raise: #141a2b;
+  --meridian-line:  #2b2d3a;
+  --meridian-text:  #e6dcc4;
+  --meridian-muted: #8e8a7c;
+  --meridian-brass: #c9a86a;
+  --meridian-gold:  #f0d9a6;
+  --meridian-ruby:  #c8324a;
+  --meridian-ice:   #9fd8ff;
+  --meridian-serif: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --meridian-pop:   cubic-bezier(.34, 1.56, .64, 1);
+  --meridian-soft:  cubic-bezier(.2, .8, .2, 1);
+
+  --lwt-accent-color:                     var(--meridian-night) !important;
+  --lwt-text-color:                       var(--meridian-text) !important;
+  --toolbox-bgcolor:                      var(--meridian-night) !important;
+  --toolbox-bgcolor-inactive:             var(--meridian-night) !important;
+  --toolbox-textcolor:                    var(--meridian-text) !important;
+  --toolbar-bgcolor:                      transparent !important;
+  --toolbar-color:                        var(--meridian-text) !important;
+  --toolbarbutton-icon-fill:              var(--meridian-text) !important;
+  --toolbarbutton-border-radius:          50% !important;
+  --toolbarbutton-hover-background:       transparent !important;
+  --toolbarbutton-active-background:      transparent !important;
+  --toolbar-field-background-color:       var(--meridian-panel) !important;
+  --toolbar-field-focus-background-color: var(--meridian-panel) !important;
+  --toolbar-field-color:                  var(--meridian-text) !important;
+  --toolbar-field-focus-color:            var(--meridian-text) !important;
+  --toolbar-field-border-color:           var(--meridian-line) !important;
+  --toolbar-field-focus-border-color:     var(--meridian-brass) !important;
+  --tab-selected-bgcolor:                 var(--meridian-raise) !important;
+  --tab-selected-textcolor:               var(--meridian-gold) !important;
+  --tabpanel-background-color:            var(--meridian-night) !important;
+  --chrome-content-separator-color:       transparent !important;
+  --focus-outline-color:                  var(--meridian-brass) !important;
+  --urlbarView-highlight-background:      var(--meridian-raise) !important;
+  --urlbarView-highlight-color:           var(--meridian-gold) !important;
+  --arrowpanel-background:                var(--meridian-panel) !important;
+  --arrowpanel-color:                     var(--meridian-text) !important;
+  --arrowpanel-border-color:              var(--meridian-line) !important;
+  --arrowpanel-border-radius:             6px !important;
+  --panel-separator-color:                var(--meridian-line) !important;
+  --panel-item-hover-bgcolor:             var(--meridian-raise) !important;
+  --menu-background-color:                var(--meridian-panel) !important;
+  --menu-color:                           var(--meridian-text) !important;
+  --menu-border-color:                    var(--meridian-line) !important;
+  --menuitem-hover-background-color:      var(--meridian-raise) !important;
+  --sidebar-background-color:             var(--meridian-panel) !important;
+  --sidebar-text-color:                   var(--meridian-text) !important;
+}
+
+/* private windows: brass turns to cold steel */
+:root[privatebrowsingmode="temporary"] {
+  --meridian-brass: #8fb4c9;
+  --meridian-gold:  #d6e6f0;
+  --meridian-ruby:  #6fb7e0;
+}
+
+#tabbrowser-tabbox { position: relative; }
+
+/* ==========================================================
+   THE TOP — an engraved scale runs under the toolbars
+   ========================================================== */
+#navigator-toolbox {
+  background: var(--meridian-night) !important;
+  border-bottom: 0 !important;
+  font-family: var(--meridian-serif) !important;
+}
+#TabsToolbar, #nav-bar, #PersonalToolbar {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#nav-bar { padding-block: 4px !important; }
+/* ruler ticks, every fifth one longer, with one bright marker travelling along them */
+#navigator-toolbox::after {
+  content: "";
+  display: block;
+  height: 6px;
+  background:
+    linear-gradient(90deg, transparent, var(--meridian-gold), transparent) no-repeat,
+    repeating-linear-gradient(90deg, var(--meridian-brass) 0 1px, transparent 1px 50px) 0 100% / 100% 6px no-repeat,
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--meridian-brass) 55%, transparent) 0 1px, transparent 1px 10px) 0 100% / 100% 3px no-repeat;
+  background-size: 90px 1px, 100% 6px, 100% 3px;
+  background-position: -90px 100%, 0 100%, 0 100%;
+  border-bottom: 1px solid color-mix(in srgb, var(--meridian-brass) 45%, transparent);
+  animation: meridian-scale 30s linear infinite;
+}
+#navigator-toolbox:has(.tabbrowser-tab[selected][busy])::after { animation-duration: 1.6s; }
+@keyframes meridian-scale {
+  to { background-position: calc(100vw + 90px) 100%, 0 100%, 0 100%; }
+}
+#browser, #tabbrowser-tabpanels { background-color: var(--meridian-night) !important; }
+
+/* ==========================================================
+   TABS — engraved brass plates
+   ========================================================== */
+.tabbrowser-tab { font-family: var(--meridian-serif) !important; }
+.tabbrowser-tab .tab-stack { position: relative; }
+.tabbrowser-tab .tab-background {
+  position: relative;
+  border-radius: 3px !important;
+  margin-block: 5px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: opacity .28s ease, transform .3s var(--meridian-soft), background-color .25s, border-color .25s !important;
+}
+.tabbrowser-tab .tab-content { transition: opacity .22s ease, transform .3s var(--meridian-soft) !important; }
+/* OPEN and CLOSE: the plate turns on its hinge */
+.tabbrowser-tab:not([fadein]) .tab-background {
+  visibility: visible !important;
+  opacity: 0;
+  transform: perspective(300px) rotateX(70deg);
+}
+.tabbrowser-tab:not([fadein]) .tab-content { opacity: 0; }
+
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background: var(--meridian-panel) !important;
+  border-color: var(--meridian-line) !important;
+}
+.tabbrowser-tab:is([selected], [multiselected]) .tab-background {
+  background: var(--meridian-raise) !important;
+  border-color: color-mix(in srgb, var(--meridian-brass) 60%, transparent) !important;
+}
+/* corner rivets on the open plate */
+.tabbrowser-tab[selected] .tab-background::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, var(--meridian-brass) 0 1px, transparent 1.4px) 0 0 / 3px 3px no-repeat,
+    radial-gradient(circle, var(--meridian-brass) 0 1px, transparent 1.4px) 100% 0 / 3px 3px no-repeat,
+    radial-gradient(circle, var(--meridian-brass) 0 1px, transparent 1.4px) 0 100% / 3px 3px no-repeat,
+    radial-gradient(circle, var(--meridian-brass) 0 1px, transparent 1.4px) 100% 100% / 3px 3px no-repeat;
+}
+.tabbrowser-tab .tab-label { color: var(--meridian-muted) !important; font-size: 13.5px !important; transition: color .25s !important; }
+.tabbrowser-tab:hover .tab-label { color: var(--meridian-text) !important; }
+.tabbrowser-tab[selected] .tab-label { color: var(--meridian-gold) !important; }
+.tab-icon-image { transition: filter .25s !important; }
+.tabbrowser-tab:not([selected]):not(:hover) .tab-icon-image { filter: sepia(.5) opacity(.7); }
+.tabbrowser-tab[pending] .tab-content { opacity: .5; }
+
+/* LOADING: a small gear turning, in steps */
+.tab-throbber[busy]::before {
+  background-image: none !important;
+  -moz-context-properties: none !important;
+  box-sizing: border-box !important;
+  border: 2px dotted var(--meridian-brass) !important;
+  border-radius: 50% !important;
+  animation: meridian-gear 2s steps(16) infinite !important;
+}
+@keyframes meridian-gear { to { transform: rotate(360deg); } }
+
+/* PLAYING SOUND: a little dial needle swinging on top of the tab */
+.tabbrowser-tab:is([soundplaying], [muted]) .tab-stack::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  width: 2px;
+  height: 8px;
+  margin-left: -1px;
+  pointer-events: none;
+  background: var(--meridian-ruby);
+  transform-origin: 50% 100%;
+}
+.tabbrowser-tab[soundplaying]:not([muted]) .tab-stack::after { animation: meridian-needle .5s ease-in-out infinite alternate; }
+.tabbrowser-tab[muted] .tab-stack::after { transform: rotate(-55deg); opacity: .5; }
+@keyframes meridian-needle { from { transform: rotate(-35deg); } to { transform: rotate(35deg); } }
+
+.tab-close-button { border-radius: 50% !important; transition: transform .35s var(--meridian-pop), background-color .2s !important; }
+.tabbrowser-tab:not([pinned], [selected], :hover) .tab-close-button { opacity: 0 !important; }
+.tab-close-button:hover { transform: rotate(90deg); background-color: var(--meridian-ruby) !important; fill: #fff !important; }
+:is(#tabs-newtab-button, #new-tab-button) > .toolbarbutton-icon { transition: transform .5s var(--meridian-soft) !important; }
+:is(#tabs-newtab-button, #new-tab-button):hover > .toolbarbutton-icon { transform: rotate(90deg); fill: var(--meridian-gold) !important; }
+
+/* ==========================================================
+   BUTTONS — small dials
+   ========================================================== */
+#nav-bar .toolbarbutton-1 > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  border-radius: 50% !important;
+  transition: transform .35s var(--meridian-pop), box-shadow .25s !important;
+}
+#nav-bar .toolbarbutton-1:not([disabled]):hover > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  box-shadow: inset 0 0 0 1px var(--meridian-brass), inset 0 0 0 3px var(--meridian-night), inset 0 0 0 4px color-mix(in srgb, var(--meridian-brass) 35%, transparent) !important;
+}
+#nav-bar .toolbarbutton-1:not([disabled]):active > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  transform: scale(.9) rotate(12deg);
+  transition-duration: .07s !important;
+}
+#nav-bar .toolbarbutton-1[disabled] > .toolbarbutton-icon { opacity: .3 !important; }
+#reload-button:not([disabled]):hover > .toolbarbutton-icon { transform: rotate(180deg); transition-duration: .7s !important; }
+#PanelUI-menu-button[open] > .toolbarbutton-badge-stack { transform: rotate(90deg); }
+
+#downloads-button:is([notification="finish"], [attention="success"]) > .toolbarbutton-badge-stack {
+  box-shadow: inset 0 0 0 1px var(--meridian-gold), 0 0 12px -2px var(--meridian-gold) !important;
+}
+#downloads-button[attention="success"] #downloads-indicator-icon { fill: var(--meridian-gold) !important; }
+#star-button[starred] { fill: var(--meridian-gold) !important; animation: meridian-star .6s var(--meridian-soft); }
+@keyframes meridian-star { from { transform: rotate(-180deg) scale(.4); } }
+
+#meridian-music-button { margin-inline: 4px 2px !important; align-self: center !important; }
+#meridian-music-button > .toolbarbutton-icon { display: block !important; width: 16px !important; height: 16px !important; padding: 0 !important; transition: transform .4s var(--meridian-soft) !important; }
+#meridian-music-button:hover > .toolbarbutton-icon { transform: rotate(45deg); }
+#meridian-music-button > .toolbarbutton-text { display: none !important; }
+
+/* ==========================================================
+   ADDRESS BAR
+   ========================================================== */
+:is(#urlbar-background, .urlbar-background) {
+  border-radius: 4px !important;
+  border: 1px solid var(--meridian-line) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: border-color .25s, box-shadow .25s !important;
+}
+#urlbar[focused] :is(#urlbar-background, .urlbar-background) {
+  border-color: var(--meridian-brass) !important;
+  box-shadow: 0 0 0 3px var(--meridian-night), 0 0 0 4px color-mix(in srgb, var(--meridian-brass) 40%, transparent) !important;
+}
+:is(#urlbar-input, .urlbar-input) { caret-color: var(--meridian-gold); }
+:is(#urlbar-input, .urlbar-input)::placeholder { color: var(--meridian-muted) !important; font-family: var(--meridian-serif); font-style: italic; }
+#urlbar ::selection { background-color: color-mix(in srgb, var(--meridian-brass) 40%, transparent) !important; }
+.urlbarView-row { border-radius: 3px !important; }
+.urlbarView-row[selected] { box-shadow: inset 2px 0 0 var(--meridian-brass) !important; }
+.urlbarView-row[selected] .urlbarView-title { color: var(--meridian-gold) !important; }
+.urlbarView-url { color: var(--meridian-brass) !important; }
+
+/* ==========================================================
+   BOOKMARKS
+   ========================================================== */
+#PersonalToolbar { padding-block: 1px 3px !important; font-family: var(--meridian-serif) !important; }
+#PlacesToolbarItems > .bookmark-item {
+  border-radius: 3px !important;
+  background: transparent !important;
+  color: var(--meridian-muted) !important;
+  transition: color .2s !important;
+}
+#PlacesToolbarItems > .bookmark-item > .toolbarbutton-icon { transition: transform .5s var(--meridian-soft) !important; }
+#PlacesToolbarItems > .bookmark-item:is(:hover, [open]) {
+  color: var(--meridian-gold) !important;
+  box-shadow: inset 0 -1px 0 var(--meridian-brass) !important;
+}
+#PlacesToolbarItems > .bookmark-item:hover > .toolbarbutton-icon { transform: rotate(30deg); }
+#PersonalToolbar toolbarseparator { border-inline-start: 1px solid var(--meridian-line) !important; }
+
+/* ==========================================================
+   MENUS, TOOLTIPS, WINDOW BUTTONS
+   ========================================================== */
+menupopup, panel {
+  --panel-background: var(--meridian-panel) !important;
+  --panel-color: var(--meridian-text) !important;
+  --panel-border-color: var(--meridian-line) !important;
+  --panel-border-radius: 6px !important;
+}
+menupopup :is(menuitem, menu) { border-radius: 3px !important; }
+menupopup :is(menuitem, menu):is([_moz-menuactive], :hover):not([disabled]) {
+  background: var(--meridian-raise) !important;
+  color: var(--meridian-gold) !important;
+  box-shadow: inset 2px 0 0 var(--meridian-brass) !important;
+}
+.subviewbutton:not([disabled]):hover { box-shadow: inset 2px 0 0 var(--meridian-brass) !important; }
+tooltip {
+  appearance: none !important;
+  background: var(--meridian-panel) !important;
+  color: var(--meridian-text) !important;
+  border: 1px solid var(--meridian-brass) !important;
+  border-radius: 3px !important;
+  padding: 4px 9px !important;
+  font: italic 13.5px var(--meridian-serif) !important;
+}
+.titlebar-buttonbox .titlebar-button:hover { background: var(--meridian-raise) !important; }
+.titlebar-buttonbox .titlebar-close:hover { background: var(--meridian-ruby) !important; color: #fff !important; }
+
+/* ==========================================================
+   FREEZE — meridian.freeze = true stops everything
+   ========================================================== */
+@media -moz-pref("meridian.freeze") {
+  *, *::before, *::after { animation-play-state: paused !important; }
+  #PlacesToolbarItems > .bookmark-item[label="Freeze"] {
+    box-shadow: inset 0 0 0 1px var(--meridian-ice), 0 0 10px -2px var(--meridian-ice) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,222 @@
+/* ==========================================================
+   N O C T U R N E  —  new tab page
+   ========================================================== */
+
+/* COLORS: keep this palette the same as in userChrome.css */
+@import url("palettes/cotton-candy.css");
+
+@-moz-document url("about:home"), url("about:newtab"), url("about:privatebrowsing") {
+  :root {
+    --newtab-background-color: var(--nc-bg) !important;
+    --newtab-background-color-secondary: var(--nc-surface) !important;
+    --newtab-text-primary-color: var(--nc-text) !important;
+    animation: var(--nc-palette-anim, none) !important;  /* living palettes */
+  }
+
+  body {
+    background: var(--nc-bg) !important;
+    color: var(--nc-text) !important;
+    overflow-x: hidden;
+  }
+  /* your animated space scene (made by tools/make_scene.py), slowly breathing in and out */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("ASSETS/space-scene.svg") center / cover no-repeat;
+    animation: nc-zoom 40s ease-in-out infinite alternate;
+  }
+  @keyframes nc-zoom {
+    from { transform: scale(1); }
+    to   { transform: scale(1.06); }
+  }
+
+  /* our own wordmark instead of the Firefox logo */
+  .logo-and-wordmark-wrapper, .logo-and-wordmark { display: none !important; }
+  .search-wrapper::before {
+    content: "nocturne";
+    display: block;
+    text-align: center;
+    font: 200 76px/1 "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+    letter-spacing: .18em;
+    margin: 0 0 32px .18em;
+    background: linear-gradient(90deg, var(--nc-hot), var(--nc-main), var(--nc-cool), var(--nc-hot));
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 6px 30px color-mix(in srgb, var(--nc-main) 45%, transparent));
+    animation: nc-wordmark 12s linear infinite;
+  }
+  @keyframes nc-wordmark { to { background-position: -300% 0; } }
+
+  /* rotating status line + XP bar under the search box (ASSETS/tagline.svg).
+     Hung off the search box itself so the new-tab grid layout can't squash it. */
+  .search-wrapper .search-inner-wrapper::after {
+    content: "";
+    position: absolute;
+    top: calc(100% + 24px);
+    left: 50%;
+    width: min(760px, 92vw);
+    height: 78px;
+    transform: translateX(-50%);
+    background: url("ASSETS/tagline.svg") center / contain no-repeat;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* search box turned off? then the wordmark + status line float in the
+     middle of the screen on their own (ASSETS/center.svg) */
+  body:not(:has(.search-wrapper))::after {
+    content: "";
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: min(820px, 92vw);
+    height: 250px;
+    transform: translate(-50%, -50%);
+    background: url("ASSETS/center.svg") center / contain no-repeat;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* glassy search box */
+  .search-wrapper :is(.search-handoff-button, .search-inner-wrapper input, input) {
+    background-color: rgb(255 255 255 / .06) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgb(255 255 255 / .1) !important;
+    border-radius: 16px !important;
+    color: var(--nc-text) !important;
+    transition: box-shadow .3s, border-color .3s !important;
+  }
+  .search-wrapper :is(.search-handoff-button, input):is(:hover, :focus, .focused) {
+    border-color: var(--nc-main) !important;
+    box-shadow: 0 0 0 1px var(--nc-main), 0 12px 40px -10px color-mix(in srgb, var(--nc-main) 60%, transparent) !important;
+  }
+
+  /* glassy shortcut tiles that lift on hover */
+  .top-site-outer .tile {
+    background-color: rgb(255 255 255 / .06) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgb(255 255 255 / .08) !important;
+    border-radius: 18px !important;
+    box-shadow: none !important;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s !important;
+  }
+  .top-site-outer:hover .tile {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 14px 30px -12px color-mix(in srgb, var(--nc-hot) 60%, transparent) !important;
+  }
+  .top-site-outer .title { color: var(--nc-muted) !important; }
+
+  /* hide sponsored clutter */
+  .top-site-outer:has(.sponsored-label),
+  .ds-card:has(.story-sponsored-label),
+  [data-is-sponsored-link="true"] { display: none !important; }
+
+  /* thin scrollbar */
+  html { scrollbar-width: thin; scrollbar-color: var(--nc-main) transparent; }
+
+  /* power saver: about:config → nocturne.freeze = true */
+  @media -moz-pref("nocturne.freeze") {
+    *, *::before, *::after { animation-play-state: paused !important; }
+    body::before { background-image: url("ASSETS/space-scene-still.svg") !important; }
+    .search-wrapper .search-inner-wrapper::after { background-image: url("ASSETS/tagline-still.svg") !important; }
+    body:not(:has(.search-wrapper))::after { background-image: url("ASSETS/center-still.svg") !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before, .search-wrapper::before { animation: none !important; }
+  }
+}
+
+/* ==========================================================
+   EVERY WEBSITE — pastel scrollbars and highlight colour.
+   Plain (non-!important) rules, so sites with their own
+   styling still win.
+   ========================================================== */
+:root {
+  scrollbar-color: color-mix(in srgb, var(--nc-main) 70%, transparent) transparent;
+}
+::selection {
+  background-color: color-mix(in srgb, var(--nc-main) 45%, transparent);
+}
+
+/* pixel pointer on the new tab page */
+@-moz-document url("about:home"), url("about:newtab") {
+  html { cursor: url("ASSETS/cursor.svg") 0 0, default; }
+}
+
+/* ==========================================================
+   GAME OVER — "can't connect" pages (about:neterror only;
+   security warnings are left exactly as Firefox draws them)
+   ========================================================== */
+@-moz-document url-prefix("about:neterror") {
+  :root {
+    --in-content-page-background: var(--nc-bg) !important;
+    --in-content-page-color: var(--nc-text) !important;
+    --in-content-text-color: var(--nc-text) !important;
+    --in-content-deemphasized-text: var(--nc-muted) !important;
+    --in-content-link-color: var(--nc-cool) !important;
+  }
+  html { cursor: url("ASSETS/cursor.svg") 0 0, default; }
+  body {
+    background:
+      radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--nc-main) 14%, transparent), transparent 70%),
+      var(--nc-bg) !important;
+    color: var(--nc-text) !important;
+  }
+  body::before {
+    content: "";
+    display: block;
+    width: min(640px, 92vw);
+    aspect-ratio: 640 / 330;
+    margin: 5vh auto 0;
+    background: url("ASSETS/gameover.svg") center / contain no-repeat;
+  }
+  .container { margin-top: 12px !important; }
+  .title { background-image: none !important; padding-inline-start: 0 !important; margin-inline-start: 0 !important; }
+  .title-text {
+    font-family: Consolas, "Cascadia Code", monospace !important;
+    font-size: 20px !important;
+    color: var(--nc-main) !important;
+  }
+  #errorShortDesc, #errorLongDesc { color: var(--nc-muted) !important; }
+  button {
+    border-radius: 12px !important;
+    font-family: Consolas, "Cascadia Code", monospace !important;
+    transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), box-shadow .25s !important;
+  }
+  button:hover { transform: translateY(-2px); }
+  button.primary, #tryAgain {
+    background: var(--nc-main) !important;
+    color: var(--nc-bg) !important;
+    border: none !important;
+    box-shadow: 0 8px 22px -8px var(--nc-main) !important;
+  }
+}
+
+/* ==========================================================
+   PRIVATE WINDOWS — Cyber Noir: black glass, warning yellow,
+   laser red. Always tells you you're in private mode.
+   ========================================================== */
+@-moz-document url("about:privatebrowsing") {
+  :root {
+    --nc-bg: #070707 !important; --nc-surface: #121212 !important; --nc-surface-2: #1c1c1c !important;
+    --nc-text: #f5f5f5 !important; --nc-muted: #8c8c8c !important;
+    --nc-main: #fcee0a !important; --nc-hot: #ff003c !important; --nc-cool: #00f0ff !important;
+    --nc-palette-anim: none !important;
+  }
+  body::before {
+    background:
+      radial-gradient(50% 40% at 50% 110%, rgb(255 0 60 / .25), transparent 70%),
+      linear-gradient(rgb(252 238 10 / .06) 1px, transparent 1px) 0 0 / 44px 44px,
+      linear-gradient(90deg, rgb(252 238 10 / .06) 1px, transparent 1px) 0 0 / 44px 44px,
+      #070707 !important;
+    animation: nc-grid 6s linear infinite !important;
+  }
+  @keyframes nc-grid { to { background-position: 0 0, 0 44px, 0 0, 0 0; } }
+  body::after { display: none !important; }
+}

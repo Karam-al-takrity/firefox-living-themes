@@ -3,11 +3,17 @@
 #     powershell -ExecutionPolicy Bypass -File install.ps1
 #
 # It backs up the profile's existing chrome folder, copies the themes in and adds
-# one line to user.js. It never edits prefs.js and needs no admin rights.
-# To install into a specific profile instead:  -ProfileDir "C:\path\to\profile"
-param([string]$ProfileDir)
+# one line to user.js. It needs no admin rights.
+#
+#   -CssOnly     install the CSS-only edition (no JavaScript, no theme loader).
+#                It also creates the theme switches in about:config, by adding
+#                them to prefs.js while Firefox is closed.
+#   -ProfileDir  install into a specific profile instead of the default one.
+param([string]$ProfileDir, [switch]$CssOnly)
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$source = if ($CssOnly) { Join-Path $here "css-only\chrome" } else { Join-Path $here "chrome" }
+if (-not (Test-Path $source)) { throw "Theme files not found: $source" }
 
 if (-not $ProfileDir) {
   if (Get-Process firefox -ErrorAction SilentlyContinue) {
@@ -44,16 +50,17 @@ if (Test-Path $chrome) {
   New-Item -ItemType Directory $chrome | Out-Null
 }
 
-# copy the themes
-New-Item -ItemType Directory -Force (Join-Path $chrome "themes") | Out-Null
-foreach ($t in Get-ChildItem (Join-Path $here "chrome\themes") -Directory) {
-  $dest = Join-Path $chrome "themes\$($t.Name)"
-  if (Test-Path $dest) { Remove-Item $dest -Recurse -Force }
-  Copy-Item $t.FullName $dest -Recurse
+# copy the themes. The old themes folder is replaced as a whole (it's in the backup),
+# so switching editions never leaves an old script behind.
+$themes = Join-Path $chrome "themes"
+if (Test-Path $themes) { Remove-Item $themes -Recurse -Force }
+New-Item -ItemType Directory $themes | Out-Null
+foreach ($t in Get-ChildItem (Join-Path $source "themes") -Directory) {
+  Copy-Item $t.FullName (Join-Path $themes $t.Name) -Recurse
   Write-Host "Installed: $($t.Name)"
 }
-Copy-Item (Join-Path $here "chrome\userChrome.css") (Join-Path $chrome "userChrome.css") -Force
-Copy-Item (Join-Path $here "chrome\userContent.css") (Join-Path $chrome "userContent.css") -Force
+Copy-Item (Join-Path $source "userChrome.css") (Join-Path $chrome "userChrome.css") -Force
+Copy-Item (Join-Path $source "userContent.css") (Join-Path $chrome "userContent.css") -Force
 
 # add the one required pref, keeping anything already in user.js
 $userJs = Join-Path $ProfileDir "user.js"
@@ -64,10 +71,33 @@ if ($existing -notcontains $pref) {
   Write-Host "Added the required line to user.js"
 }
 
+# CSS-only: create the theme switches so they show up in about:config ready to toggle.
+# Firefox rewrites prefs.js when it closes, so this only works while it's closed.
+if ($CssOnly) {
+  $prefsJs = Join-Path $ProfileDir "prefs.js"
+  if (Get-Process firefox -ErrorAction SilentlyContinue) {
+    Write-Host "Firefox is running, so the theme switches weren't created. Close it and run this again, or create them in about:config yourself." -ForegroundColor Yellow
+  } else {
+    $have = if (Test-Path $prefsJs) { Get-Content $prefsJs } else { @() }
+    $add = @()
+    foreach ($name in "relics.active", "ame.active", "manga.active", "meridian.active",
+                      "nocturne.freeze", "relics.freeze", "ame.freeze", "manga.freeze", "meridian.freeze") {
+      if (-not ($have | Where-Object { $_ -like "user_pref(`"$name`",*" })) { $add += "user_pref(`"$name`", false);" }
+    }
+    if ($add.Count) {
+      Add-Content -Path $prefsJs -Encoding ascii -Value $add
+      Write-Host "Created $($add.Count) theme switch(es) in about:config"
+    }
+  }
+}
+
 Write-Host ""
 Write-Host "Done. Start Firefox: Nocturne is the default theme." -ForegroundColor Green
+if ($CssOnly) {
+  Write-Host "To switch themes, open about:config?filter=.active and set ONE of them to true (all false = Nocturne)." -ForegroundColor Green
+}
 $loader = "C:\Program Files\Mozilla Firefox\theme-loader.cfg"
-if (-not (Test-Path $loader)) {
+if (-not $CssOnly -and -not (Test-Path $loader)) {
   Write-Host "Optional: for the palette button, live switching, the Meridian clock and music, read" -ForegroundColor Yellow
   Write-Host "'Step 2' in README.md. It needs admin rights and has a security trade-off, so it's your call." -ForegroundColor Yellow
 }

@@ -1,6 +1,6 @@
 # Firefox Living Themes
 
-Five animated themes for Firefox, with a palette button to switch between them instantly. All the art and sound is original and generated locally, and nothing loads from the internet.
+Five animated themes for Firefox. All the art and sound is original and generated locally, and nothing loads from the internet.
 
 Built and tested on **Firefox 159 on Windows 11**. Other versions and systems may need small fixes (see [Contributing](CONTRIBUTING.md)).
 
@@ -10,32 +10,50 @@ Built and tested on **Firefox 159 on Windows 11**. Other versions and systems ma
 
 *These show the new tab artwork rendered outside Firefox. Real screenshots of all five themes are welcome as contributions.*
 
+## Two editions
+
+| | **CSS-only** (`css-only/`) | **Full** (`chrome/`) |
+|---|---|---|
+| What it is | Pure CSS, nothing else | CSS plus a small script per theme |
+| Installs outside your profile | Nothing | Optional loader in Firefox's program folder (admin) |
+| Switching themes | A toggle in `about:config`, live, no restart | Palette button or Ctrl+Alt+T |
+| Meridian's new tab | Animated instrument, no live time or date | Live clock with real time, date, planets and moon phase |
+| Music | None | Ame, Relics and Meridian |
+| Everything else | Same | Same |
+
+**Not sure? Start with CSS-only.** It's the simplest and safest, and you can switch to the full edition later by re-running the installer.
+
 ## The themes
 
-- **Meridian:** a brass astronomical clock on midnight blue. It shows your real time, today's date and calculated planet positions and moon phase, with meshing gears, a soft tick and a music box. *Its clock needs the theme loader (Step 2).*
+- **Meridian:** a brass astronomical clock on midnight blue, with turning rings, orbiting planets, meshing gears and a moon dial. In the full edition the clock shows your real time and date, with a soft tick and a music box.
 - **Nocturne:** pastel space and pixel games, with a bookmarks dock that magnifies, a rocket loading bar, a walking pixel critter, 20 colour palettes and a Game Over page when you're offline.
-- **Ame:** a rainy neon city seen from a loft window, with a black cat, a passing train and lo-fi rain music.
-- **Relics:** a moonlit Japanese room lit by a paper lantern, with nods to favourite shows and games, and koto music.
+- **Ame:** a rainy neon city seen from a loft window, with a black cat and a passing train. The full edition adds lo-fi rain music.
+- **Relics:** a moonlit Japanese room lit by a paper lantern, with nods to favourite shows and games. The full edition adds koto music.
 - **Manga: Ghoul:** a dark manga page inspired by Tokyo Ghoul, with a red eye, spider lilies, a "1000 − 7" countdown and Japanese sound effects on your buttons.
 
 ## Setup (Windows)
 
-### Step 1: Install the themes
+### Install
 
 1. On this page, click **Code → Download ZIP**, then unzip it anywhere.
 2. **Close Firefox completely.**
 3. Open the unzipped folder, click the address bar at the top of the window, type `powershell` and press Enter.
-4. Run:
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File install.ps1
-   ```
+4. Run **one** of these:
+   - CSS-only edition:
+     ```powershell
+     powershell -ExecutionPolicy Bypass -File install.ps1 -CssOnly
+     ```
+   - Full edition:
+     ```powershell
+     powershell -ExecutionPolicy Bypass -File install.ps1
+     ```
 5. Start Firefox. You should see Nocturne.
 
-The installer backs up your existing `chrome` folder first and needs no admin rights. It only touches `chrome` and one line in `user.js`.
+The installer backs up your existing `chrome` folder first and needs no admin rights. It only touches the profile's `chrome` folder and one line in `user.js`. The CSS-only option also adds the theme switches to `prefs.js` while Firefox is closed, so they're ready to toggle in `about:config`.
 
-### Step 2 (optional): Install the theme loader
+### Full edition only: install the theme loader
 
-**Firefox can't run a theme's scripts by itself, so this step is what adds the palette button, Ctrl+Alt+T, the Meridian clock and the music.** Without it, the styles still work and you can switch themes by hand (see below).
+**Firefox can't run a theme's scripts by itself. This step adds the palette button, Ctrl+Alt+T, the live Meridian clock and the music.** Without it, the full edition still looks right, and you switch themes in `about:config` like the CSS-only edition.
 
 > **Security trade-off, please read.** This adds two files to Firefox's program folder that run every theme's `chrome.js` with **full access to Firefox and your files**. The scripts here only build the interface and synthesise music, and you can read them yourself: `loader/theme-loader.cfg` and `chrome/themes/*/chrome.js`. But once the loader is installed, any `chrome.js` placed in those folders will run with that same access, so only add themes you trust.
 
@@ -55,21 +73,23 @@ The installer backs up your existing `chrome` folder first and needs no admin ri
 macOS and Linux should work but **haven't been tested**, and `install.ps1` is Windows-only. To install by hand:
 
 1. Open `about:support` in Firefox and click **Open Folder** next to *Profile Folder*.
-2. Close Firefox, then copy this repo's `chrome` folder and `user.js` into the profile folder. If you already have a `user.js`, add its line to yours instead of replacing it.
-3. For the loader, copy `loader/theme-loader.cfg` next to the Firefox program, and `loader/defaults/pref/autoconfig.js` into its `defaults/pref/` folder. On macOS these go inside `Firefox.app/Contents/Resources/`.
+2. Close Firefox, then copy into the profile folder:
+   - the `chrome` folder from `css-only/` (CSS-only) or from the repo root (full);
+   - `user.js`. If you already have one, add its line to yours instead of replacing it.
+3. Full edition only, for the loader: copy `loader/theme-loader.cfg` next to the Firefox program, and `loader/defaults/pref/autoconfig.js` into its `defaults/pref/` folder. On macOS these go inside `Firefox.app/Contents/Resources/`.
 
 ## Using it
 
-- **Switch themes:** use the palette button, or press **Ctrl+Alt+T**.
-- **Switch without the loader:** in `about:config`, set one of `ame.active`, `relics.active`, `manga.active` or `meridian.active` to true (create it as a Boolean if it's missing). Set them all to false for Nocturne. Keep only one on at a time.
-- **Stop the animations:** use **Freeze animations** in the palette menu, or set `<theme>.freeze` to true in `about:config`.
-- **Music:** it plays only on the new tab page. Click the button at the end of the tab bar to mute it, and scroll on it to change the volume.
+- **Switch themes in `about:config`:** open `about:config?filter=.active` and set **one** of `relics.active`, `ame.active`, `manga.active` or `meridian.active` to true. Set them all to false for Nocturne. The change is live. If a switch is missing, create it as a Boolean. Tip: bookmark `about:config?filter=.active` and name it **Themes**.
+- **Switch with the full edition and loader:** use the palette button next to ☰, or press **Ctrl+Alt+T**.
+- **Stop the animations:** set `<theme>.freeze` to true in `about:config` (for example `nocturne.freeze`), or use **Freeze animations** in the palette menu.
+- **Music (full edition):** it plays only on the new tab page. Click the button at the end of the tab bar to mute it, and scroll on it to change the volume.
 - **Bookmark icons:** bookmarks-bar folders named `AI`, `Social`, `Piracy`, `Tetris`, `TFT`, `Chess`, `Linux` or `Other`, and a bookmark named `Freeze`, get custom icons. Change the names in each theme's CSS to suit your own.
 
 ## Good to know
 
 - **New tab page:** themes that draw over the new tab may hide or cover its search box and shortcuts. Search from the address bar.
-- **Private windows:** each theme has a private look. Meridian covers the private-browsing page, so search from the address bar there too.
+- **Private windows:** each theme has a private look. In the full edition, Meridian covers the private-browsing page, so search from the address bar there too.
 - **Firefox updates** can change internal names and break some styling. Please open an issue if they do.
 
 ## Uninstall

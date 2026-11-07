@@ -1,0 +1,2 @@
+/* Next link of the "no other theme is on" chain (see gate-chrome.css). */
+@import url("gate-chrome-3.css") not -moz-pref("manga.active");

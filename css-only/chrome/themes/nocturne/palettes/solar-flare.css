@@ -1,0 +1,12 @@
+/* Solar Flare — inside the sun: crimson, molten gold, magenta plasma */
+:root {
+  --nc-bg:        #120705;
+  --nc-surface:   #1f0f0b;
+  --nc-surface-2: #2d1610;
+  --nc-text:      #fff1e8;
+  --nc-muted:     #b8968a;
+  --nc-main:      #ff4d2e;   /* hover, focus, glass tint */
+  --nc-hot:       #ffb000;   /* active tab glow, close button */
+  --nc-cool:      #e0218a;   /* third aurora light */
+  --nc-star:      #ffe066;   /* bookmarked star */
+}

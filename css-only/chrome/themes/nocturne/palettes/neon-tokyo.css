@@ -1,0 +1,12 @@
+/* Neon Tokyo — rain-soaked night street: hot pink signs, cyan reflections */
+:root {
+  --nc-bg:        #0a0614;
+  --nc-surface:   #150d24;
+  --nc-surface-2: #20133a;
+  --nc-text:      #fbefff;
+  --nc-muted:     #a690c0;
+  --nc-main:      #ff2e88;   /* hover, focus, glass tint */
+  --nc-hot:       #ffd23f;   /* active tab glow, close button */
+  --nc-cool:      #00e5ff;   /* third aurora light */
+  --nc-star:      #fff275;   /* bookmarked star */
+}

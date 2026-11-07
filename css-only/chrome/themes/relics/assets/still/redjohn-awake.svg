@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<!-- RED JOHN: the full circular smiley, painted on the wall -->
+  <g fill="none" stroke="#b0101f" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M330 268 C 392 266, 444 318, 442 382 C 441 444, 392 494, 328 492 C 266 491, 217 442, 219 378 C 220 318, 270 270, 334 270" stroke-width="11"/>
+    <path d="M300 272 C 250 288, 222 330, 224 380 M418 318 C 436 346, 440 380, 432 414 M260 462 C 284 482, 318 492, 350 488" stroke="#6e0a12" stroke-width="4" opacity=".7"/>
+    <path d="M336 266 C 346 262, 356 268, 350 272" stroke-width="6"/>
+    <path d="M262 400 C 286 438, 312 452, 334 452 C 360 452, 384 434, 400 398" stroke-width="12"></path>
+    <path d="M268 410 C 292 440, 320 448, 342 446" stroke="#b5121f" stroke-width="3" opacity=".6"/>
+  </g>
+  <g fill="#b0101f"><ellipse cx="293" cy="344" rx="14" ry="22" fill="#ff2a3a" opacity=".35"></ellipse><ellipse cx="365" cy="344" rx="14" ry="22" fill="#ff2a3a" opacity=".35"></ellipse>
+    <path d="M286 330 C 284 344, 286 360, 294 364 C 302 362, 304 344, 300 330 C 298 322, 288 322, 286 330 Z"/>
+    <path d="M358 328 C 355 342, 358 360, 366 364 C 374 362, 376 344, 372 330 C 370 321, 360 321, 358 328 Z"/>
+    <rect x="291" y="358" width="5" height="14" rx="2.5"></rect>
+    <rect x="300" y="486" width="6" height="26" rx="3"></rect>
+    <rect x="352" y="484" width="5" height="18" rx="2.5"></rect>
+    <rect x="320" y="448" width="5" height="16" rx="2.5"></rect>
+    <rect x="236" y="430" width="5" height="12" rx="2.5"></rect>
+    <circle cx="303" cy="514" r="4"/><circle cx="355" cy="503" r="3.2"/>
+  </g>
+
+  </svg>

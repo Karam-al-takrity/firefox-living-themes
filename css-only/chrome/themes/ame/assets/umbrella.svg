@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<g stroke="#9fd8ff" stroke-width="1" stroke-linecap="round" opacity=".8">
+  <line x1="6" y1="0" x2="5" y2="5"><animate attributeName="y1" values="-6;10" dur=".8s" repeatCount="indefinite"/><animate attributeName="y2" values="-1;15" dur=".8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur=".8s" repeatCount="indefinite"/></line>
+  <line x1="26" y1="0" x2="25" y2="5"><animate attributeName="y1" values="-6;10" dur=".8s" begin=".4s" repeatCount="indefinite"/><animate attributeName="y2" values="-1;15" dur=".8s" begin=".4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur=".8s" begin=".4s" repeatCount="indefinite"/></line>
+</g>
+<path d="M3 17 Q16 2 29 17 Q25.5 14.5 22.5 17 Q19.5 14.5 16 17 Q12.5 14.5 9.5 17 Q6.5 14.5 3 17 Z" fill="#ff4f9a"/>
+<path d="M16 6 Q11 10 9.5 17 M16 6 Q21 10 22.5 17" stroke="#c22d72" stroke-width=".8" fill="none"/>
+<path d="M16 17 V27 Q16 30 13.5 30 Q11 30 11 27.5" stroke="#dfe7f5" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,248 @@
+/* =====================================================================
+   RELICS - userContent.css  (Firefox 159)
+   New tab: one painted scene. A dark room at night, a round moon-window
+   onto a red moon, Red John's smiley on the wall, and quiet nods to
+   Sekiro, Clair Obscur, Elden Ring, The Mentalist, House, Mindhunter,
+   Black Bird, Breaking Bad, Hajime no Ippo, Naruto and One Piece.
+
+   Interactions (pure CSS):
+     - hover Red John      -> he wakes: wider grin, glowing eyes, the room goes dark
+     - hover the lantern   -> it flares and swings, the crow takes off
+     - move away           -> the crow flies back and lands on the sill
+     - press and hold      -> blackout: only Red John is left glowing
+
+   Web pages: themed scrollbars only. Error pages are left unstyled.
+   Prefs:  relics.freeze                = true -> stop all motion
+           relics.newtab.objects.hidden = true -> plain dark new tab
+   ===================================================================== */
+
+@-moz-document url("about:newtab"), url("about:home") {
+  :root {
+    --relics-ink: #0b0809;
+    --relics-paper: #efe6d2;
+    --relics-muted: #a69c90;
+    --relics-red: #c1121f;
+    /* the scene is painted on a 1600 x 900 canvas, scaled like background-size: cover.
+       --relics-s is one canvas unit in screen pixels, so things can be pinned to the painting. */
+    --relics-s: max(calc(100vw / 1600), calc(100vh / 900));
+    --newtab-background-color: var(--relics-ink) !important;
+    --newtab-text-primary-color: var(--relics-paper) !important;
+    --newtab-text-secondary-color: var(--relics-muted) !important;
+    --newtab-wallpaper: none !important;
+    --newtab-wallpaper-color: transparent !important;
+    color-scheme: dark !important;
+  }
+
+  body {
+    background: var(--relics-ink) !important;
+    background-image: none !important;
+    /* the page itself ignores the mouse so only the hot spots react;
+       real controls are switched back on below */
+    pointer-events: none !important;
+  }
+  #root { position: relative; z-index: 1; pointer-events: none !important; }
+  #root :is(a, button, input, select, textarea, label, summary, [role="button"], [tabindex],
+            moz-button, moz-toggle, moz-select, moz-box-button, panel-list) { pointer-events: auto !important; }
+
+  html::before, html::after, body::before, body::after, #root::before, #root::after {
+    content: "" !important;
+    position: fixed !important;
+    display: block !important;
+  }
+
+  /* ---------- the world outside the window (drifts a little, for depth) ---------- */
+  html::before {
+    inset: 0; z-index: 0; pointer-events: none;
+    background: url("assets/scene-outside.svg") center / cover no-repeat;
+    transform: scale(1.04);
+    animation: relics-eyes 1.1s ease-out both, relics-parallax 26s ease-in-out infinite;
+  }
+
+  /* ---------- the room: petals, vignette, lantern, room ---------- */
+  html::after {
+    inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      radial-gradient(ellipse 4px 2.4px at 60px 40px, #ffb3c6 95%, transparent),
+      radial-gradient(ellipse 3px 2px at 210px 170px, #ff9bb6 95%, transparent),
+      radial-gradient(ellipse 5px 3px at 120px 300px, #ffc9d6 95%, transparent),
+      radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0,0,0,.7)),
+      url("assets/lantern.svg"),
+      url("assets/room.svg");
+    background-size: 520px 460px, 700px 620px, 900px 820px, 100% 100%, cover, cover;
+    background-position: 0 0, 0 0, 0 0, center, center, center;
+    background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
+    transition: filter .6s ease;
+    animation: relics-eyes 1.1s ease-out both, relics-petals 40s linear infinite;
+  }
+
+  /* ---------- Red John: painted on the wall, and his own hot spot ---------- */
+  body::before {
+    z-index: 3; pointer-events: auto; cursor: pointer;
+    left: calc(50vw - 595 * var(--relics-s));
+    top: calc(50vh - 195 * var(--relics-s));
+    width: calc(250 * var(--relics-s));
+    height: calc(290 * var(--relics-s));
+    background: url("assets/redjohn.svg") no-repeat;
+    background-size: calc(1600 * var(--relics-s)) calc(900 * var(--relics-s));
+    background-position: calc(-205 * var(--relics-s)) calc(-255 * var(--relics-s));
+    transition: transform .6s cubic-bezier(.34,1.56,.64,1), filter .6s ease;
+    animation: relics-eyes 1.1s ease-out both;
+  }
+
+  /* ---------- the crow: lands on the sill whenever it is left alone ---------- */
+  body::after {
+    inset: 0; z-index: 1; pointer-events: none;
+    background: url("assets/crow-sit.svg") center / cover no-repeat;
+    transform-origin: calc(50vw + 105 * var(--relics-s)) calc(50vh + 190 * var(--relics-s));
+    animation: relics-crow-land 1.4s cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  /* ---------- lantern hot spot ---------- */
+  #root::before {
+    pointer-events: auto; cursor: pointer;
+    left: calc(50vw + 395 * var(--relics-s));
+    top: calc(50vh - 320 * var(--relics-s));
+    width: calc(140 * var(--relics-s));
+    height: calc(240 * var(--relics-s));
+  }
+
+  /* ---------- darkness that falls when Red John wakes ---------- */
+  #root::after {
+    inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(ellipse 60% 70% at 22% 42%, rgba(40,0,6,.55), #000 75%);
+    opacity: 0;
+    transition: opacity .8s ease;
+  }
+
+  /* ================= interactions ================= */
+
+  /* hover Red John: he wakes up, the lights go down */
+  :root:has(body:hover):not(:has(#root:hover)) body::before {
+    background-image: url("assets/redjohn-awake.svg");
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 22px rgba(255,30,50,.6));
+  }
+  :root:has(body:hover):not(:has(#root:hover)) #root::after { opacity: .62; }
+
+  /* hover the lantern: it flares and swings, the crow takes off */
+  :root:has(#root:hover):not(:has(#root *:hover))::after {
+    background-image:
+      radial-gradient(ellipse 4px 2.4px at 60px 40px, #ffb3c6 95%, transparent),
+      radial-gradient(ellipse 3px 2px at 210px 170px, #ff9bb6 95%, transparent),
+      radial-gradient(ellipse 5px 3px at 120px 300px, #ffc9d6 95%, transparent),
+      radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0,0,0,.7)),
+      url("assets/lantern-bright.svg"),
+      url("assets/room.svg");
+    filter: brightness(1.12) saturate(1.1);
+  }
+  :root:has(#root:hover):not(:has(#root *:hover)) body::after {
+    background-image: url("assets/crow-flying.svg");
+    animation: relics-crow-takeoff 1.5s cubic-bezier(.5,0,.8,.6) forwards;
+  }
+
+  /* press and hold anywhere: blackout, only Red John remains */
+  :root:active #root::after { opacity: .93; transition: opacity .12s ease; }
+  :root:active body::before {
+    background-image: url("assets/redjohn-awake.svg");
+    filter: drop-shadow(0 0 30px rgba(255,30,50,.85)) brightness(1.3);
+  }
+
+  /* if shortcuts or stories come back, make them sit in the room */
+  .top-site-outer .tile { background: rgba(20,14,16,.82) !important; border: 1px solid #3a2a2c !important; transition: transform .25s cubic-bezier(.34,1.56,.64,1), border-color .2s !important; }
+  .top-site-outer:hover .tile { transform: translateY(-3px); border-color: var(--relics-red) !important; }
+  .top-site-outer .title { color: var(--relics-paper) !important; }
+
+  /* ================= motion ================= */
+  @keyframes relics-eyes { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes relics-parallax {
+    0%, 100% { transform: scale(1.04) translate(0, 0); }
+    50% { transform: scale(1.04) translate(-9px, -4px); }
+  }
+  @keyframes relics-petals {
+    from { background-position: 0 0, 0 0, 0 0, center, center, center; }
+    to { background-position: -520px 460px, -700px 1240px, -900px 1640px, center, center, center; }
+  }
+  @keyframes relics-crow-takeoff {
+    0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+    30%  { transform: translate(calc(60 * var(--relics-s)), calc(-140 * var(--relics-s))) scale(.85); opacity: 1; }
+    85%  { transform: translate(calc(105 * var(--relics-s)), calc(-420 * var(--relics-s))) scale(.22); opacity: 1; }
+    100% { transform: translate(calc(110 * var(--relics-s)), calc(-440 * var(--relics-s))) scale(.16); opacity: 0; }
+  }
+  @keyframes relics-crow-land {
+    0%   { transform: translate(calc(110 * var(--relics-s)), calc(-420 * var(--relics-s))) scale(.18); opacity: 0;
+           background-image: url("assets/crow-flying.svg"); }
+    10%  { opacity: 1; }
+    85%  { transform: translate(0, calc(-6 * var(--relics-s))) scale(1); background-image: url("assets/crow-flying.svg"); }
+    86%, 100% { transform: translate(0, 0) scale(1); background-image: url("assets/crow-sit.svg"); opacity: 1; }
+  }
+
+  /* ================= switches ================= */
+  @media -moz-pref("relics.freeze") {
+    *, *::before, *::after, html::before, html::after { animation: none !important; transition: none !important; }
+    html::before { background-image: url("assets/still/scene-outside.svg") !important; }
+    html::after {
+      background-image:
+        radial-gradient(ellipse 80% 75% at 50% 45%, transparent 55%, rgba(0,0,0,.7)),
+        url("assets/still/lantern.svg"),
+        url("assets/still/room.svg") !important;
+      background-size: 100% 100%, cover, cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+    }
+    body::before { background-image: url("assets/still/redjohn.svg") !important; }
+    body::after { background-image: url("assets/still/crow-sit.svg") !important; transform: none !important; }
+  }
+  @media -moz-pref("relics.newtab.objects.hidden") {
+    html::before, html::after, body::before, body::after, #root::before, #root::after { display: none !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html::before { animation: none !important; }
+    html::after, body::after { animation: none !important; }
+  }
+}
+
+/* themed scrollbars on normal web pages only (error pages are about: URLs, so untouched) */
+@-moz-document url-prefix("http://"), url-prefix("https://") {
+  :root { scrollbar-color: #7a1420 #141316; }
+}
+
+/* =====================================================================
+   EXTRAS
+   Can't-connect pages only (about:neterror): the lantern has gone out and
+   the smiley watches from the wall. Security warnings (about:certerror)
+   stay exactly as Firefox draws them.
+   ===================================================================== */
+@-moz-document url-prefix("about:neterror") {
+  :root {
+    --in-content-page-background: #110d0f !important;
+    --in-content-page-color: #efe6d2 !important;
+    --in-content-text-color: #efe6d2 !important;
+    --in-content-deemphasized-text: #a3958c !important;
+    --in-content-link-color: #ff8a4a !important;
+  }
+  body {
+    background: radial-gradient(50% 45% at 50% 30%, #241c1f, #110d0f 75%) !important;
+    color: #efe6d2 !important;
+  }
+  body::before {
+    content: "";
+    display: block;
+    width: min(640px, 92vw);
+    aspect-ratio: 640 / 380;
+    margin: 4vh auto 0;
+    background: url("assets/deadline.svg") center / contain no-repeat;
+  }
+  .container { margin-top: 8px !important; }
+  .title { background-image: none !important; padding-inline-start: 0 !important; margin-inline-start: 0 !important; }
+  .title-text { color: #efe6d2 !important; font-weight: 300 !important; }
+  button { border-radius: 4px !important; }
+  button.primary, #tryAgain {
+    background: #c1121f !important;
+    color: #efe6d2 !important;
+    border: none !important;
+    box-shadow: 0 0 18px -4px #ff8a4a !important;
+  }
+  @media -moz-pref("relics.freeze") {
+    body::before { background-image: url("assets/still/deadline.svg") !important; }
+  }
+}

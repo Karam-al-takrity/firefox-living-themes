@@ -1,0 +1,7 @@
+/* CSS-only edition: each theme's page styles load only while its pref is true
+   (see userChrome.css). */
+@import url("themes/relics/userContent.css") -moz-pref("relics.active");
+@import url("themes/ame/userContent.css") -moz-pref("ame.active");
+@import url("themes/manga/userContent.css") -moz-pref("manga.active");
+@import url("themes/meridian/userContent.css") -moz-pref("meridian.active");
+@import url("themes/nocturne/gate-content.css") not -moz-pref("relics.active");

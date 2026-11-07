@@ -1,0 +1,12 @@
+/* Nebula — deep space: magenta gas clouds, starlight, teal */
+:root {
+  --nc-bg:        #05030d;
+  --nc-surface:   #0e0a1c;
+  --nc-surface-2: #17112b;
+  --nc-text:      #f6f1ff;
+  --nc-muted:     #9a90b8;
+  --nc-main:      #ff3cac;   /* hover, focus, glass tint */
+  --nc-hot:       #2bd2ff;   /* active tab glow, close button */
+  --nc-cool:      #f8d800;   /* third aurora light */
+  --nc-star:      #f8d800;   /* bookmarked star */
+}

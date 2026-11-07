@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<g transform="translate(900 662)">
+  <path d="M-30 -20 C -28 -48, 0 -60, 18 -52 C 30 -46, 34 -30, 28 -16 L 48 4 L 20 -6 C 8 0, -18 0, -30 -20 Z" fill="#07060a" stroke="#d99a8a" stroke-opacity=".35" stroke-width="1.4"/>
+  <path d="M-6 -6 L-9 2 M4 -6 L2 2" stroke="#07060a" stroke-width="2.4"/>
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="0 -20 -44;0 -20 -44;-16 -20 -44;-16 -20 -44;8 -20 -44;0 -20 -44" keyTimes="0;.55;.6;.75;.82;1" dur="9s" repeatCount="indefinite"/>
+    <circle cx="-26" cy="-52" r="14" fill="#07060a" stroke="#d99a8a" stroke-opacity=".35" stroke-width="1.4"/>
+    <polygon points="-38,-55 -60,-48 -38,-45" fill="#141218"/>
+    <ellipse cx="-30" cy="-55" rx="2.2" ry="2.2" fill="#c9a227"><animate attributeName="ry" values="2.2;2.2;.2;2.2" keyTimes="0;.9;.95;1" dur="5s" repeatCount="indefinite"/></ellipse>
+  </g>
+</g>
+</svg>

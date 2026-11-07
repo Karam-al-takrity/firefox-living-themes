@@ -1,0 +1,12 @@
+/* Koi Pond — orange koi gliding over jade water */
+:root {
+  --nc-bg:        #061214;
+  --nc-surface:   #0d1f22;
+  --nc-surface-2: #142b2f;
+  --nc-text:      #eefcfb;
+  --nc-muted:     #89aeab;
+  --nc-main:      #2ec4b6;   /* hover, focus, glass tint */
+  --nc-hot:       #ff6b35;   /* active tab glow, close button */
+  --nc-cool:      #f7f3e3;   /* third aurora light */
+  --nc-star:      #ffd166;   /* bookmarked star */
+}

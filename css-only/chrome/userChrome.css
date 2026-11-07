@@ -1,0 +1,13 @@
+/* CSS-only edition: no JavaScript, nothing installed outside your profile.
+   Each theme loads only while its pref is true (about:config, live, no restart):
+     relics.active   = true  -> relics
+     ame.active      = true  -> ame
+     manga.active    = true  -> manga
+     meridian.active = true  -> meridian
+     all of them false       -> nocturne (the default)
+   Keep at most one of them true. */
+@import url("themes/relics/userChrome.css") -moz-pref("relics.active");
+@import url("themes/ame/userChrome.css") -moz-pref("ame.active");
+@import url("themes/manga/userChrome.css") -moz-pref("manga.active");
+@import url("themes/meridian/userChrome.css") -moz-pref("meridian.active");
+@import url("themes/nocturne/gate-chrome.css") not -moz-pref("relics.active");

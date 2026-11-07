@@ -1,0 +1,26 @@
+/* Day and Night — LIVING palette: dawn, bright day, dusk and starry night
+   The whole browser drifts through these colors every 480s. */
+@property --nc-bg   { syntax: "<color>"; inherits: true; initial-value: #1a0f14; }
+@property --nc-main { syntax: "<color>"; inherits: true; initial-value: #ffb4a2; }
+@property --nc-hot  { syntax: "<color>"; inherits: true; initial-value: #ff7b54; }
+@property --nc-cool { syntax: "<color>"; inherits: true; initial-value: #ffd6a5; }
+
+:root {
+  --nc-bg:        #1a0f14;
+  --nc-surface:   color-mix(in srgb, var(--nc-bg), #fff 5%);
+  --nc-surface-2: color-mix(in srgb, var(--nc-bg), #fff 10%);
+  --nc-text:      #f3f4f8;
+  --nc-muted:     #9ba0b0;
+  --nc-main:      #ffb4a2;
+  --nc-hot:       #ff7b54;
+  --nc-cool:      #ffd6a5;
+  --nc-star:      #fff3b0;
+  --nc-palette-anim: nc-palette 480s ease-in-out infinite;
+}
+
+@keyframes nc-palette {
+  0%, 100% { --nc-bg: #1a0f14;  --nc-main: #ffb4a2;  --nc-hot: #ff7b54;  --nc-cool: #ffd6a5; }
+  25%      { --nc-bg: #08141f;  --nc-main: #7fd8ff;  --nc-hot: #ffd23f;  --nc-cool: #a5ffe0; }
+  50%      { --nc-bg: #1a0b18;  --nc-main: #ff6f91; --nc-hot: #ff9e00; --nc-cool: #845ec2; }
+  75%      { --nc-bg: #04060f; --nc-main: #8ea8ff; --nc-hot: #e0e6ff; --nc-cool: #3d5afe; }
+}

@@ -1,0 +1,114 @@
+/* ==========================================================
+   M A N G A  (dark, Tokyo Ghoul homage)  —  userContent.css
+   New tab page, can't-connect page, private page and the
+   scrollbars on web pages.
+   ========================================================== */
+
+/* ---------- new tab: one full dark manga page ---------- */
+@-moz-document url("about:newtab"), url("about:home") {
+  :root {
+    --newtab-background-color: #0e0d11 !important;
+    --newtab-background-color-secondary: #1a1820 !important;
+    --newtab-text-primary-color: #d9d4c9 !important;
+  }
+  body { background: #0e0d11 !important; color: #d9d4c9 !important; overflow-x: hidden; }
+  /* the page, revealed with a quick page-turn wipe each time a tab opens */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("assets/page.svg") center / cover no-repeat;
+    animation: manga-turn .7s cubic-bezier(.6, 0, .2, 1) both;
+  }
+  @keyframes manga-turn {
+    from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); filter: brightness(.5); }
+    to   { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); filter: none; }
+  }
+  /* the Firefox logo would clash with the page */
+  .logo-and-wordmark-wrapper, .logo-and-wordmark { display: none !important; }
+
+  /* if the search box is switched on, it becomes a dark speech bubble */
+  .search-wrapper :is(.search-handoff-button, input) {
+    background: #1a1820 !important;
+    color: #d9d4c9 !important;
+    border: 3px solid #77737a !important;
+    border-radius: 26px !important;
+    box-shadow: 4px 4px 0 #8f1020 !important;
+    font-family: "Ink Free", "Segoe Print", cursive !important;
+  }
+  .top-site-outer .tile {
+    background: #1a1820 !important;
+    border: 2.5px solid #77737a !important;
+    border-radius: 4px !important;
+    box-shadow: 3px 3px 0 #8f1020 !important;
+    transition: transform .25s cubic-bezier(.34, 1.56, .64, 1) !important;
+  }
+  .top-site-outer:hover .tile { transform: rotate(-3deg) translateY(-3px); }
+  .top-site-outer .title { color: #a9a59c !important; }
+
+  html { scrollbar-color: #8f1020 #1a1820; }
+
+  @media -moz-pref("manga.freeze") {
+    body::before { background-image: url("assets/still/page.svg") !important; animation: none !important; }
+  }
+}
+
+/* ---------- private new tab: the page, dimmed and blood-tinted ---------- */
+@-moz-document url("about:privatebrowsing") {
+  body { background: #14070a !important; }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("assets/still/page.svg") center / cover no-repeat;
+    opacity: .3;
+  }
+}
+
+/* ---------- can't connect ---------- */
+@-moz-document url-prefix("about:neterror") {
+  :root {
+    --in-content-page-background: #0e0d11 !important;
+    --in-content-page-color: #d9d4c9 !important;
+    --in-content-text-color: #d9d4c9 !important;
+    --in-content-deemphasized-text: #8d8993 !important;
+    --in-content-link-color: #ff5a6b !important;
+  }
+  body {
+    background: radial-gradient(rgb(217 212 201 / .07) 1px, transparent 1.4px) 0 0 / 7px 7px, #0e0d11 !important;
+    color: #d9d4c9 !important;
+  }
+  body::before {
+    content: "";
+    display: block;
+    width: min(640px, 92vw);
+    aspect-ratio: 640 / 380;
+    margin: 4vh auto 0;
+    background: url("assets/shock.svg") center / contain no-repeat;
+  }
+  .container { margin-top: 10px !important; }
+  .title { background-image: none !important; padding-inline-start: 0 !important; margin-inline-start: 0 !important; }
+  .title-text { font: 700 26px "Ink Free", "Segoe Print", cursive !important; color: #d9d4c9 !important; }
+  button {
+    border: 2.5px solid #77737a !important;
+    border-radius: 4px !important;
+    box-shadow: 3px 3px 0 #8f1020 !important;
+    font: 16px Impact, "Arial Black", sans-serif !important;
+    letter-spacing: 1px !important;
+  }
+  button:hover { transform: translate(-1px, -1px) rotate(-2deg); }
+  button:active { transform: translate(2px, 2px); box-shadow: none !important; }
+  button.primary, #tryAgain { background: #d4142a !important; color: #f4eee4 !important; }
+  @media -moz-pref("manga.freeze") {
+    body::before { background-image: url("assets/still/shock.svg") !important; }
+  }
+}
+
+/* ---------- web pages: blood-red scrollbars ---------- */
+@-moz-document url-prefix("http://"), url-prefix("https://") {
+  :root { scrollbar-color: #8f1020 transparent; }
+}

@@ -1,0 +1,12 @@
+/* Synthwave Sunset — retro drive into a striped sun */
+:root {
+  --nc-bg:        #120424;
+  --nc-surface:   #1d0a36;
+  --nc-surface-2: #2a0f4a;
+  --nc-text:      #ffeefa;
+  --nc-muted:     #a98bc4;
+  --nc-main:      #f72585;   /* hover, focus, glass tint */
+  --nc-hot:       #ff9e00;   /* active tab glow, close button */
+  --nc-cool:      #4cc9f0;   /* third aurora light */
+  --nc-star:      #ffd60a;   /* bookmarked star */
+}

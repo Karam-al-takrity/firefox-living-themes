@@ -1,0 +1,12 @@
+/* Vaporwave — 90s mall dream: pink marble, cyan water, mint */
+:root {
+  --nc-bg:        #1a0b2e;
+  --nc-surface:   #24123f;
+  --nc-surface-2: #301852;
+  --nc-text:      #fff4fb;
+  --nc-muted:     #b39ccc;
+  --nc-main:      #ff71ce;   /* hover, focus, glass tint */
+  --nc-hot:       #01cdfe;   /* active tab glow, close button */
+  --nc-cool:      #05ffa1;   /* third aurora light */
+  --nc-star:      #fffb96;   /* bookmarked star */
+}

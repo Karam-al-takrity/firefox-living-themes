@@ -1,0 +1,12 @@
+/* Cotton Candy — soft pastels on velvet night */
+:root {
+  --nc-bg:        #16121c;
+  --nc-surface:   #211b29;
+  --nc-surface-2: #2c2436;
+  --nc-text:      #fdf6ff;
+  --nc-muted:     #ad9fbd;
+  --nc-main:      #ffb3d9;   /* hover, focus, glass tint */
+  --nc-hot:       #b3e5ff;   /* active tab glow, close button */
+  --nc-cool:      #d9c2ff;   /* third aurora light */
+  --nc-star:      #fff0a8;   /* bookmarked star */
+}

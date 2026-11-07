@@ -1,0 +1,26 @@
+/* Lava Lamp — LIVING palette: molten reds, oranges and magentas melting into each other
+   The whole browser drifts through these colors every 40s. */
+@property --nc-bg   { syntax: "<color>"; inherits: true; initial-value: #120604; }
+@property --nc-main { syntax: "<color>"; inherits: true; initial-value: #ff4d2e; }
+@property --nc-hot  { syntax: "<color>"; inherits: true; initial-value: #ffb000; }
+@property --nc-cool { syntax: "<color>"; inherits: true; initial-value: #e0218a; }
+
+:root {
+  --nc-bg:        #120604;
+  --nc-surface:   color-mix(in srgb, var(--nc-bg), #fff 5%);
+  --nc-surface-2: color-mix(in srgb, var(--nc-bg), #fff 10%);
+  --nc-text:      #fff1e8;
+  --nc-muted:     #b8968a;
+  --nc-main:      #ff4d2e;
+  --nc-hot:       #ffb000;
+  --nc-cool:      #e0218a;
+  --nc-star:      #ffe066;
+  --nc-palette-anim: nc-palette 40s ease-in-out infinite;
+}
+
+@keyframes nc-palette {
+  0%, 100% { --nc-bg: #120604;  --nc-main: #ff4d2e;  --nc-hot: #ffb000;  --nc-cool: #e0218a; }
+  25%      { --nc-bg: #14040c;  --nc-main: #ff2e88;  --nc-hot: #ff4d2e;  --nc-cool: #ffb000; }
+  50%      { --nc-bg: #140904;  --nc-main: #ffb000; --nc-hot: #e0218a; --nc-cool: #ff4d2e; }
+  75%      { --nc-bg: #12040a; --nc-main: #ff5e5b; --nc-hot: #ff9e00; --nc-cool: #c9184a; }
+}

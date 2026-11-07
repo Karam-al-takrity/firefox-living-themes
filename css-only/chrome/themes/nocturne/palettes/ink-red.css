@@ -1,0 +1,12 @@
+/* Ink & Red — minimal editorial: pure greyscale with one red accent */
+:root {
+  --nc-bg:        #0b0b0b;
+  --nc-surface:   #161616;
+  --nc-surface-2: #222222;
+  --nc-text:      #f2f2f2;
+  --nc-muted:     #8a8a8a;
+  --nc-main:      #e8e8e8;   /* hover, focus, glass tint */
+  --nc-hot:       #ff3355;   /* active tab glow, close button */
+  --nc-cool:      #5a5a5a;   /* third aurora light */
+  --nc-star:      #ff3355;   /* bookmarked star */
+}

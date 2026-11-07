@@ -1,0 +1,712 @@
+/* ==========================================================
+   N O C T U R N E   A U R O R A  —  a custom Firefox look
+   Living aurora background, capsule tabs, squircle buttons,
+   web pages floating as a rounded card.
+
+   POWER SAVER: about:config → nocturne.freeze = true freezes
+   every animation (see section 11).
+
+   COLORS: change the palette file named on the @import line
+   below (see the palettes folder for all options).
+   ========================================================== */
+
+@import url("palettes/cotton-candy.css");
+@import url("dock-icons.css");
+
+:root {
+  /* glass tinted by the palette's main color */
+  --nc-glass:     color-mix(in srgb, var(--nc-main) 7%, rgb(255 255 255 / .03));
+  --nc-glass-hi:  color-mix(in srgb, var(--nc-main) 16%, rgb(255 255 255 / .05));
+  --nc-border:    color-mix(in srgb, var(--nc-main) 16%, rgb(255 255 255 / .06));
+  --nc-glow:      linear-gradient(90deg, var(--nc-hot), var(--nc-main), var(--nc-cool), var(--nc-hot));
+  --nc-gap:       10px;
+  --nc-ease:      cubic-bezier(.2, .8, .2, 1);
+  --nc-spring:    cubic-bezier(.34, 1.56, .64, 1);
+
+  /* ---- map onto Firefox's own theme variables ---- */
+  --toolbox-bgcolor:                      transparent !important;
+  --toolbox-bgcolor-inactive:             transparent !important;
+  --toolbox-textcolor:                    var(--nc-text) !important;
+  --toolbox-textcolor-inactive:           var(--nc-muted) !important;
+  --toolbar-bgcolor:                      transparent !important;
+  --toolbar-color:                        var(--nc-text) !important;
+  --lwt-text-color:                       var(--nc-text) !important;
+  --tab-selected-bgcolor:                 var(--nc-surface-2) !important;
+  --tab-selected-textcolor:               var(--nc-text) !important;
+  --tab-hover-background-color:           var(--nc-glass-hi) !important;
+  --tabpanel-background-color:            var(--nc-bg) !important;
+  --chrome-content-separator-color:       transparent !important;
+  --sidebar-background-color:             var(--nc-surface) !important;
+  --sidebar-text-color:                   var(--nc-text) !important;
+
+  --toolbar-field-background-color:       var(--nc-glass) !important;
+  --toolbar-field-color:                  var(--nc-text) !important;
+  --toolbar-field-border-color:           var(--nc-border) !important;
+  --toolbar-field-focus-background-color: var(--nc-surface) !important;
+  --toolbar-field-focus-color:            var(--nc-text) !important;
+  --toolbar-field-focus-border-color:     var(--nc-main) !important;
+  --urlbarView-highlight-background:      color-mix(in srgb, var(--nc-main) 30%, transparent) !important;
+  --urlbarView-highlight-color:           var(--nc-text) !important;
+
+  --toolbarbutton-icon-fill:              var(--nc-text) !important;
+  --toolbarbutton-border-radius:          11px !important;
+  --toolbarbutton-hover-background:       var(--nc-glass-hi) !important;
+  --toolbarbutton-active-background:      color-mix(in srgb, var(--nc-main) 30%, transparent) !important;
+  --focus-outline-color:                  var(--nc-main) !important;
+
+  --arrowpanel-background:                var(--nc-surface) !important;
+  --arrowpanel-color:                     var(--nc-text) !important;
+  --arrowpanel-border-color:              var(--nc-border) !important;
+  --arrowpanel-border-radius:             16px !important;
+  --panel-separator-color:                var(--nc-border) !important;
+  --panel-item-hover-bgcolor:             var(--nc-glass-hi) !important;
+  --menu-background-color:                var(--nc-surface) !important;
+  --menu-color:                           var(--nc-text) !important;
+  --menu-border-color:                    var(--nc-border) !important;
+  --menuitem-hover-background-color:      transparent !important;
+
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif !important;
+}
+
+/* ==========================================================
+   1. THE AURORA — one living background behind everything
+   ========================================================== */
+:root {
+  background:
+    radial-gradient(55% 60% at 0% 0%,     color-mix(in srgb, var(--nc-main) 50%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 100% 0%,   color-mix(in srgb, var(--nc-cool) 35%, transparent),   transparent 70%),
+    radial-gradient(55% 60% at 100% 100%, color-mix(in srgb, var(--nc-hot) 40%, transparent),  transparent 70%),
+    radial-gradient(40% 50% at 0% 100%,   color-mix(in srgb, var(--nc-main) 30%, transparent), transparent 70%),
+    var(--nc-bg) !important;
+  background-size: 160% 160% !important;
+  /* aurora drift + (for living palettes) the color cycle.
+     Replace this with "animation: none !important;" for a still background. */
+  animation: nc-aurora 50s ease-in-out infinite alternate, var(--nc-palette-anim, none) !important;
+}
+@keyframes nc-aurora {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 40%; }
+  100% { background-position: 30% 100%; }
+}
+
+#navigator-toolbox, #titlebar, #TabsToolbar, #nav-bar, #PersonalToolbar, #browser {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================
+   2. WEB CONTENT — floats as a rounded card
+   ========================================================== */
+:root:not([inDOMFullscreen], [sizemode="fullscreen"]) #tabbrowser-tabbox {
+  margin: 0 var(--nc-gap) var(--nc-gap) !important;
+  border-radius: 16px !important;
+  overflow: clip !important;
+  box-shadow:
+    0 0 0 1px var(--nc-border),
+    0 20px 50px -20px rgb(0 0 0 / .8),
+    0 0 80px -30px color-mix(in srgb, var(--nc-main) 50%, transparent) !important;
+}
+#tabbrowser-tabpanels { background-color: var(--nc-bg) !important; }
+#sidebar-box {
+  border-radius: 16px !important;
+  margin-bottom: var(--nc-gap) !important;
+  overflow: clip !important;
+}
+
+/* ==========================================================
+   3. TABS — floating capsules
+   ========================================================== */
+.tabbrowser-tab {
+  padding-inline: 3px !important;
+}
+.tab-background {
+  border-radius: 999px !important;
+  border: 1px solid transparent !important;
+  margin-block: 5px !important;
+  transition: background-color .2s var(--nc-ease), box-shadow .3s var(--nc-ease) !important;
+}
+.tab-content { padding-inline: 14px 10px !important; }
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background-color: var(--nc-glass-hi) !important;
+}
+/* active tab: flowing gradient outline + ember glow underneath */
+.tabbrowser-tab:is([selected], [multiselected]) .tab-background {
+  background:
+    linear-gradient(var(--nc-surface-2), var(--nc-surface-2)) padding-box,
+    var(--nc-glow) border-box !important;
+  background-size: 100% 100%, 300% 100% !important;
+  box-shadow: 0 8px 22px -8px color-mix(in srgb, var(--nc-hot) 65%, transparent) !important;
+  animation: nc-border-flow 6s linear infinite;
+}
+@keyframes nc-border-flow { to { background-position: 0 0, -300% 0; } }
+
+/* favicons: tilt-and-pop on hover, glow on the active tab */
+.tab-icon-image, .tab-icon-stack > * {
+  transition: transform .35s var(--nc-spring), filter .3s !important;
+}
+.tabbrowser-tab:hover .tab-icon-image {
+  transform: scale(1.18) rotate(-8deg);
+}
+.tabbrowser-tab[selected] .tab-icon-image {
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--nc-main) 80%, transparent));
+}
+/* a new tab springs into place */
+.tabbrowser-tab[fadein]:not([pinned]) .tab-stack {
+  animation: nc-tab-in .45s var(--nc-spring);
+}
+@keyframes nc-tab-in {
+  from { transform: translateY(8px) scale(.9); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* titles fade out at the edge instead of "…" */
+.tab-label-container {
+  mask-image: linear-gradient(90deg, #000 85%, transparent) !important;
+}
+.tab-label { font-weight: 500 !important; }
+.tabbrowser-tab:not([selected]) .tab-label { color: var(--nc-muted) !important; }
+.tabbrowser-tab:hover .tab-label { color: var(--nc-text) !important; }
+
+/* pinned tabs are perfect circles */
+.tabbrowser-tab[pinned] .tab-background { aspect-ratio: 1; }
+.tabbrowser-tab[pinned] .tab-content { padding-inline: 10px !important; }
+
+/* loading tabs breathe violet */
+.tabbrowser-tab[busy]:not([selected]) .tab-background {
+  animation: nc-breathe 1.4s ease-in-out infinite;
+}
+/* tabs playing sound pulse in time */
+.tabbrowser-tab[soundplaying]:not([selected]) .tab-background {
+  animation: nc-breathe 2.4s ease-in-out infinite;
+}
+.tab-audio-button, .tab-icon-overlay[soundplaying] {
+  fill: var(--nc-main) !important;
+}
+
+/* close button: hidden until hover, spins into an ember circle */
+.tabbrowser-tab:not([pinned], [selected], :hover) .tab-close-button {
+  opacity: 0 !important;
+}
+.tab-close-button {
+  border-radius: 50% !important;
+  transition: opacity .15s, background-color .2s, transform .35s var(--nc-spring) !important;
+}
+.tab-close-button:hover {
+  background-color: var(--nc-hot) !important;
+  fill: var(--nc-bg) !important;
+  transform: rotate(90deg);
+}
+
+/* tab separators and the "list all tabs" chevron get quieter */
+.tabbrowser-tab::after, .tabbrowser-tab::before { border: none !important; }
+#alltabs-button { opacity: .5; }
+#alltabs-button:hover { opacity: 1; }
+
+/* "+" new tab: gradient-ringed circle that turns on hover */
+:is(#tabs-newtab-button, #new-tab-button) > .toolbarbutton-icon {
+  border-radius: 50% !important;
+  background:
+    linear-gradient(var(--nc-bg), var(--nc-bg)) padding-box,
+    var(--nc-glow) border-box !important;
+  border: 1.5px solid transparent !important;
+  transition: transform .45s var(--nc-spring), box-shadow .3s !important;
+}
+:is(#tabs-newtab-button, #new-tab-button):hover > .toolbarbutton-icon {
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 0 18px -2px color-mix(in srgb, var(--nc-main) 70%, transparent) !important;
+}
+
+/* ==========================================================
+   4. TOOLBAR BUTTONS — glass squircles with personality
+   ========================================================== */
+#nav-bar { padding-block: 6px !important; }
+
+#nav-bar .toolbarbutton-1:not(#PanelUI-menu-button) > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  background-color: var(--nc-glass) !important;
+  box-shadow: inset 0 0 0 1px var(--nc-border), inset 0 1px 0 rgb(255 255 255 / .06) !important;
+  transition:
+    background-color .2s, box-shadow .25s,
+    transform .35s var(--nc-spring) !important;
+}
+#nav-bar .toolbarbutton-1:not([disabled]):hover > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  background-color: var(--nc-glass-hi) !important;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--nc-main) 55%, transparent),
+    0 6px 16px -6px color-mix(in srgb, var(--nc-main) 70%, transparent) !important;
+  transform: translateY(-1px);
+}
+#nav-bar .toolbarbutton-1:not([disabled]):active > :is(.toolbarbutton-icon, .toolbarbutton-badge-stack) {
+  transform: scale(.88);
+}
+#nav-bar .toolbarbutton-1[disabled] > .toolbarbutton-icon { opacity: .35 !important; }
+
+/* back + forward fuse into one segmented pill */
+#back-button > .toolbarbutton-icon    { border-radius: 14px 5px 5px 14px !important; }
+#forward-button > .toolbarbutton-icon { border-radius: 5px 14px 14px 5px !important; }
+#back-button    { padding-inline-end: 1px !important; }
+#forward-button { padding-inline-start: 1px !important; }
+/* …and each one leans the way it goes */
+#back-button:not([disabled]):hover > .toolbarbutton-icon    { transform: translateX(-2px) !important; }
+#forward-button:not([disabled]):hover > .toolbarbutton-icon { transform: translateX(2px) !important; }
+
+/* reload spins, stop shrinks */
+#reload-button:not([disabled]):hover > .toolbarbutton-icon {
+  transform: rotate(180deg) !important;
+  transition: transform .6s var(--nc-ease), background-color .2s, box-shadow .25s !important;
+}
+#stop-button:hover > .toolbarbutton-icon {
+  background-color: color-mix(in srgb, var(--nc-hot) 40%, transparent) !important;
+}
+
+/* home does a little hop */
+#home-button:hover > .toolbarbutton-icon { animation: nc-hop .5s var(--nc-spring); }
+@keyframes nc-hop { 40% { transform: translateY(-4px); } }
+
+/* downloads: a pulsing ring while something is downloading */
+#downloads-button:is([progress], [attention]) > .toolbarbutton-badge-stack {
+  animation: nc-ring 1.8s ease-out infinite;
+}
+@keyframes nc-ring {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--nc-cool) 70%, transparent); }
+  100% { box-shadow: 0 0 0 10px transparent; }
+}
+
+/* the main menu becomes the brand button: a glowing gradient orb */
+#PanelUI-menu-button > .toolbarbutton-badge-stack {
+  border-radius: 50% !important;
+  background: var(--nc-glow) !important;
+  background-size: 300% 100% !important;
+  animation: nc-orb 8s linear infinite;
+  box-shadow: 0 0 14px -3px color-mix(in srgb, var(--nc-main) 80%, transparent) !important;
+  transition: transform .4s var(--nc-spring) !important;
+}
+#PanelUI-menu-button > .toolbarbutton-badge-stack > .toolbarbutton-icon { fill: var(--nc-bg) !important; }
+#PanelUI-menu-button:hover > .toolbarbutton-badge-stack { transform: scale(1.1) rotate(15deg); }
+#PanelUI-menu-button[open] > .toolbarbutton-badge-stack { transform: rotate(90deg); }
+@keyframes nc-orb { to { background-position: -300% 0; } }
+
+/* ==========================================================
+   5. ADDRESS BAR — centered glass with a glowing focus
+   ========================================================== */
+/* pinned to the exact middle of the window, so it lines up with the
+   bookmarks dock no matter how many buttons sit on either side */
+:root { --nc-center-w: clamp(320px, 100vw - 560px, 760px); }
+#nav-bar { position: relative; }
+#urlbar-container {
+  position: absolute !important;
+  inset-block: 0;
+  left: calc(50% - var(--nc-center-w) / 2) !important;
+  width: var(--nc-center-w) !important;
+  max-width: none !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+/* the buttons after the address bar stay pushed to the right */
+#urlbar-container + * { margin-inline-start: auto !important; }
+:is(#urlbar-background, .urlbar-background) {
+  border-radius: 14px !important;
+  border: 1px solid var(--nc-border) !important;
+  box-shadow: none !important;
+  transition: box-shadow .3s var(--nc-ease), border-color .3s var(--nc-ease) !important;
+}
+#urlbar:is([focused], [open]) :is(#urlbar-background, .urlbar-background) {
+  outline: none !important;
+  border-color: var(--nc-main) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--nc-main) 60%, transparent),
+    0 18px 60px -10px color-mix(in srgb, var(--nc-main) 55%, transparent) !important;
+}
+/* address centered while idle, left-aligned while typing */
+#urlbar:not([focused]) :is(#urlbar-input, .urlbar-input) { text-align: center !important; }
+:is(#urlbar-input, .urlbar-input) { caret-color: var(--nc-hot); }
+:is(#urlbar-input, .urlbar-input)::placeholder { color: var(--nc-muted) !important; font-style: italic; }
+#urlbar ::selection { background-color: color-mix(in srgb, var(--nc-hot) 45%, transparent) !important; }
+
+/* the lock / site-info button becomes a tinted chip */
+#identity-box > .identity-box-button,
+#tracking-protection-icon-container {
+  border-radius: 9px !important;
+}
+#identity-box > .identity-box-button:hover {
+  background-color: color-mix(in srgb, var(--nc-main) 25%, transparent) !important;
+}
+
+/* bookmark star turns gold and bursts when you save a page */
+#star-button[starred] {
+  fill: var(--nc-star) !important;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--nc-star) 80%, transparent));
+  animation: nc-burst .6s var(--nc-spring);
+}
+@keyframes nc-burst {
+  0%   { transform: scale(.4) rotate(-30deg); }
+  60%  { transform: scale(1.35) rotate(12deg); }
+  100% { transform: none; }
+}
+
+/* suggestion rows: rounded with an ember edge on the chosen one */
+.urlbarView-row { border-radius: 10px !important; }
+.urlbarView-row[selected] {
+  box-shadow: inset 3px 0 0 var(--nc-hot) !important;
+}
+
+/* ==========================================================
+   6. WINDOW CONTROLS — three glowing dots
+   ========================================================== */
+.titlebar-buttonbox .titlebar-button {
+  background: transparent !important;
+  padding-inline: 7px !important;
+  list-style-image: none !important;
+}
+.titlebar-buttonbox .titlebar-button > .toolbarbutton-icon {
+  width: 13px !important;
+  height: 13px !important;
+  border-radius: 50% !important;
+  transition: transform .3s var(--nc-spring), box-shadow .25s !important;
+}
+.titlebar-min > .toolbarbutton-icon                  { background: var(--nc-cool) !important; }
+.titlebar-max > .toolbarbutton-icon,
+.titlebar-restore > .toolbarbutton-icon              { background: var(--nc-main) !important; }
+.titlebar-close > .toolbarbutton-icon                { background: var(--nc-hot) !important; }
+.titlebar-buttonbox .titlebar-button:hover > .toolbarbutton-icon {
+  transform: scale(1.35);
+  box-shadow: 0 0 12px 1px currentColor;
+}
+.titlebar-min:hover                       { color: var(--nc-cool) !important; }
+.titlebar-max:hover, .titlebar-restore:hover { color: var(--nc-main) !important; }
+.titlebar-close:hover                     { color: var(--nc-hot) !important; }
+/* dots go grey when the window isn't focused */
+:root:-moz-window-inactive .titlebar-button > .toolbarbutton-icon {
+  filter: grayscale(1) opacity(.5);
+}
+
+/* ==========================================================
+   7. MENUS, POPUPS & TOOLTIPS
+   ========================================================== */
+menupopup, panel {
+  --panel-border-radius: 16px !important;
+}
+menupopup :is(menuitem, menu) {
+  border-radius: 8px !important;
+  transition: background .15s, padding .2s var(--nc-ease) !important;
+}
+/* hovered item: violet wash fading right, plus an accent bar */
+menupopup :is(menuitem, menu):is([_moz-menuactive], :hover):not([disabled]) {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--nc-main) 35%, transparent), transparent) !important;
+  box-shadow: inset 3px 0 0 var(--nc-hot) !important;
+  color: var(--nc-text) !important;
+}
+.subviewbutton { border-radius: 9px !important; }
+.subviewbutton:not([disabled]):hover {
+  box-shadow: inset 3px 0 0 var(--nc-hot) !important;
+}
+
+tooltip {
+  appearance: none !important;
+  background: var(--nc-surface-2) !important;
+  color: var(--nc-text) !important;
+  border: 1px solid var(--nc-border) !important;
+  border-radius: 9px !important;
+  padding: 5px 9px !important;
+}
+
+/* ==========================================================
+   8. STARFIELD — tiny stars twinkle behind the tabs & toolbar
+   ========================================================== */
+#navigator-toolbox {
+  background: url("ASSETS/stars.svg") repeat !important;
+}
+
+/* ==========================================================
+   9. BOOKMARKS BAR — a floating dock that magnifies
+   ========================================================== */
+#PersonalToolbar {
+  justify-content: center !important;
+  padding: 2px var(--nc-gap) 8px !important;
+  overflow: visible !important;
+}
+#personal-bookmarks {
+  flex: 0 1 auto !important;
+  width: auto !important;
+  max-width: var(--nc-center-w) !important;   /* never wider than the address bar above */
+  margin-inline: auto !important;
+  padding: 3px 10px !important;
+  border-radius: 18px !important;
+  background: var(--nc-glass) !important;
+  box-shadow:
+    inset 0 0 0 1px var(--nc-border),
+    inset 0 1px 0 rgb(255 255 255 / .08),
+    0 12px 30px -14px color-mix(in srgb, var(--nc-main) 70%, transparent) !important;
+  overflow: visible !important;
+}
+#PlacesToolbar, #PlacesToolbarItems { overflow: visible !important; }
+
+#PlacesToolbarItems > .bookmark-item {
+  position: relative;
+  margin-inline: 2px !important;
+  padding: 4px 6px !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  transition: transform .3s var(--nc-spring), background-color .2s, box-shadow .25s !important;
+  /* icons rise into the dock one by one when a window opens */
+  animation: nc-rise .6s var(--nc-spring) backwards;
+}
+#PlacesToolbarItems > .bookmark-item:nth-child(2)  { animation-delay: .05s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(3)  { animation-delay: .10s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(4)  { animation-delay: .15s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(5)  { animation-delay: .20s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(6)  { animation-delay: .25s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(7)  { animation-delay: .30s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(8)  { animation-delay: .35s; }
+#PlacesToolbarItems > .bookmark-item:nth-child(n+9) { animation-delay: .40s; }
+@keyframes nc-rise {
+  from { transform: translateY(14px) scale(.6); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* sites show just their icon (folders keep their names) */
+#PlacesToolbarItems > .bookmark-item:not([container]) > .toolbarbutton-text { display: none !important; }
+#PlacesToolbarItems > .bookmark-item:not([container]) > .toolbarbutton-icon { margin: 0 !important; }
+#PlacesToolbarItems > .bookmark-item[container] {
+  background: color-mix(in srgb, var(--nc-cool) 14%, transparent) !important;
+}
+
+/* dock magnification: hovered icon grows, its neighbours grow a little */
+#PlacesToolbarItems > .bookmark-item:hover {
+  transform: scale(1.4) translateY(-2px);
+  z-index: 2;
+}
+#PlacesToolbarItems > .bookmark-item:has(+ .bookmark-item:hover),
+#PlacesToolbarItems > .bookmark-item:hover + .bookmark-item {
+  transform: scale(1.18);
+}
+#PlacesToolbarItems > .bookmark-item:active { transform: scale(1.1); }
+/* each icon glows in a palette colour, in turn */
+#PlacesToolbarItems > .bookmark-item:nth-child(3n+1):hover { box-shadow: 0 6px 18px -4px var(--nc-main) !important; }
+#PlacesToolbarItems > .bookmark-item:nth-child(3n+2):hover { box-shadow: 0 6px 18px -4px var(--nc-hot) !important; }
+#PlacesToolbarItems > .bookmark-item:nth-child(3n):hover   { box-shadow: 0 6px 18px -4px var(--nc-cool) !important; }
+/* a little dot under the hovered icon, like a dock's "running" light */
+#PlacesToolbarItems > .bookmark-item::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: calc(50% - 2px);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--nc-star);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity .2s, transform .3s var(--nc-spring);
+}
+#PlacesToolbarItems > .bookmark-item:hover::after { opacity: 1; transform: scale(1); }
+#PlacesChevron, #OtherBookmarks { border-radius: 10px !important; }
+
+/* ==========================================================
+   10. LITTLE ANIMATIONS
+   ========================================================== */
+/* a light sweeps across a tab the moment you select it */
+.tabbrowser-tab .tab-background { overflow: clip; position: relative; }
+.tabbrowser-tab[selected] .tab-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .22) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: nc-shine .9s var(--nc-ease) .05s 1 forwards;
+  pointer-events: none;
+}
+@keyframes nc-shine { to { transform: translateX(120%); } }
+
+/* address bar: the outline becomes a flowing rainbow while you type */
+#urlbar[focused] :is(#urlbar-background, .urlbar-background) {
+  border-color: transparent !important;
+  background:
+    linear-gradient(var(--nc-surface), var(--nc-surface)) padding-box,
+    var(--nc-glow) border-box !important;
+  background-size: 100% 100%, 300% 100% !important;
+  animation: nc-border-flow 4s linear infinite;
+}
+/* suggestions cascade in one after another */
+.urlbarView-row { animation: nc-row-in .28s var(--nc-ease) backwards; }
+.urlbarView-row:nth-child(2) { animation-delay: .03s; }
+.urlbarView-row:nth-child(3) { animation-delay: .06s; }
+.urlbarView-row:nth-child(4) { animation-delay: .09s; }
+.urlbarView-row:nth-child(5) { animation-delay: .12s; }
+.urlbarView-row:nth-child(n+6) { animation-delay: .15s; }
+@keyframes nc-row-in { from { opacity: 0; transform: translateY(-6px); } }
+
+/* extensions puzzle piece wiggles, downloads arrow drops */
+#unified-extensions-button:hover > .toolbarbutton-icon { animation: nc-wiggle .5s ease-in-out; }
+@keyframes nc-wiggle {
+  20% { transform: rotate(-12deg); } 40% { transform: rotate(10deg); }
+  60% { transform: rotate(-6deg); }  80% { transform: rotate(3deg); }
+}
+#downloads-button:hover > .toolbarbutton-badge-stack { animation: nc-drop .5s var(--nc-spring); }
+@keyframes nc-drop { 30% { transform: translateY(3px) scaleY(.9); } }
+
+/* the gradient menu orb sends out a soft pulse now and then */
+#PanelUI-menu-button > .toolbarbutton-badge-stack {
+  animation: nc-orb 8s linear infinite, nc-orb-pulse 6s ease-out infinite !important;
+}
+@keyframes nc-orb-pulse {
+  0%, 80% { box-shadow: 0 0 14px -3px color-mix(in srgb, var(--nc-main) 80%, transparent), 0 0 0 0 color-mix(in srgb, var(--nc-hot) 60%, transparent); }
+  100%    { box-shadow: 0 0 14px -3px color-mix(in srgb, var(--nc-main) 80%, transparent), 0 0 0 10px transparent; }
+}
+
+/* tab favicons do a happy bounce when a page finishes loading */
+.tabbrowser-tab:not([busy]) .tab-icon-image[src] { animation: nc-pop-in .45s var(--nc-spring); }
+@keyframes nc-pop-in { from { transform: scale(.4); opacity: .3; } }
+
+/* ==========================================================
+   11. FREEZE SWITCH — stops every animation to save power.
+   Turn on/off: about:config → nocturne.freeze (true = frozen).
+   Your "Freeze" bookmark in the dock opens that switch.
+   ========================================================== */
+#PlacesToolbarItems > .bookmark-item[label="Freeze"] > .toolbarbutton-icon {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23b3e5ff' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M8 1v14M1.9 4.5l12.2 7M1.9 11.5l12.2-7M6 2.5 8 4l2-1.5M6 13.5 8 12l2 1.5'/%3E%3C/svg%3E") !important;
+  transition: transform .6s var(--nc-spring) !important;
+}
+#PlacesToolbarItems > .bookmark-item[label="Freeze"]:hover > .toolbarbutton-icon { transform: rotate(60deg); }
+
+@media -moz-pref("nocturne.freeze") {
+  *, *::before, *::after { animation-play-state: paused !important; }
+  #navigator-toolbox { background-image: url("ASSETS/stars-still.svg") !important; }
+  /* the Freeze bookmark lights up icy blue while frozen */
+  #PlacesToolbarItems > .bookmark-item[label="Freeze"] {
+    background: color-mix(in srgb, #b3e5ff 28%, transparent) !important;
+    box-shadow: 0 0 14px -2px #b3e5ff !important;
+  }
+}
+
+/* ==========================================================
+   12. EXTRAS — little moments
+   ========================================================== */
+/* a rocket streaks across the top of the page while it loads */
+#tabbrowser-tabbox { position: relative; }
+:root:has(.tabbrowser-tab[selected][busy]) #tabbrowser-tabbox::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 190px;
+  height: 20px;
+  z-index: 10;
+  background: url("ASSETS/rocket.svg") no-repeat;
+  pointer-events: none;
+  animation: nc-rocket 1.8s linear infinite;
+}
+@keyframes nc-rocket {
+  from { transform: translateX(-190px); }
+  to   { transform: translateX(100vw); }
+}
+
+/* tabs playing sound show bouncing equalizer bars */
+.tabbrowser-tab[soundplaying]:not([muted], [pinned]) .tab-content::after {
+  content: "";
+  order: -1;
+  flex-shrink: 0;
+  width: 14px;
+  height: 12px;
+  margin-inline-end: 6px;
+  background: url("ASSETS/eq.svg") no-repeat;
+}
+
+/* finished download: confetti burst + a "+1" coin */
+#downloads-button { position: relative; overflow: visible !important; }
+#downloads-button[attention="success"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow:
+    -14px -12px 0 var(--nc-main), 12px -14px 0 var(--nc-hot), 16px 6px 0 var(--nc-cool),
+    -16px 8px 0 var(--nc-star), 0 -18px 0 var(--nc-star), 4px 16px 0 var(--nc-main),
+    -8px -20px 0 var(--nc-cool), 20px -4px 0 var(--nc-main), -20px -2px 0 var(--nc-hot);
+  animation: nc-confetti 1.1s ease-out 3 both;
+}
+@keyframes nc-confetti {
+  from { transform: translate(-50%, -50%) scale(.2); opacity: 1; }
+  to   { transform: translate(-50%, -50%) scale(1.7); opacity: 0; }
+}
+#downloads-button[attention="success"]::before {
+  content: "+1";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  font: bold 11px Consolas, monospace;
+  color: var(--nc-star);
+  pointer-events: none;
+  animation: nc-plus-one 1.1s ease-out 3 both;
+}
+@keyframes nc-plus-one {
+  from { transform: translate(-50%, 4px); opacity: 0; }
+  30%  { opacity: 1; }
+  to   { transform: translate(-50%, -16px); opacity: 0; }
+}
+
+/* pixel-art pointer over the toolbars and tabs (text fields keep their I-beam) */
+:is(#navigator-toolbox, #navigator-toolbox *):not(input, textarea, .urlbar-input, #urlbar-input) {
+  cursor: url("ASSETS/cursor.svg") 0 0, default !important;
+}
+
+/* the pixel critter wanders across the bookmarks bar now and then, hopping as it goes */
+#PersonalToolbar { position: relative; }
+#PersonalToolbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 25px;
+  height: 22px;
+  z-index: 5;
+  background: url("ASSETS/walker.svg") no-repeat;
+  pointer-events: none;
+  animation: nc-wander 80s linear infinite, nc-hops 2.6s ease-in-out infinite;
+}
+@keyframes nc-wander {
+  0%          { transform: translateX(-40px); opacity: 1; }
+  30%         { transform: translateX(100vw); opacity: 1; }
+  30.01%, 100% { transform: translateX(100vw); opacity: 0; }
+}
+@keyframes nc-hops {
+  0%, 60%, 100% { translate: 0 0; }
+  75%           { translate: 0 -9px; }
+}
+
+/* ---------- private windows: Cyber Noir, with a hazard stripe on top ---------- */
+:root[privatebrowsingmode="temporary"] {
+  --nc-bg: #070707 !important; --nc-surface: #121212 !important; --nc-surface-2: #1c1c1c !important;
+  --nc-text: #f5f5f5 !important; --nc-muted: #8c8c8c !important;
+  --nc-main: #fcee0a !important; --nc-hot: #ff003c !important; --nc-cool: #00f0ff !important;
+  --nc-star: #fcee0a !important;
+  --nc-palette-anim: none !important;
+}
+:root[privatebrowsingmode="temporary"] #navigator-toolbox {
+  border-top: 3px solid transparent !important;
+  border-image: repeating-linear-gradient(45deg, #fcee0a 0 8px, #070707 8px 16px) 3 !important;
+}
+
+/* frozen: the moving extras step aside */
+@media -moz-pref("nocturne.freeze") {
+  #PersonalToolbar::after,
+  #tabbrowser-tabbox::before,
+  .tabbrowser-tab .tab-content::after { display: none !important; }
+}
+
+/* ==========================================================
+   animations
+   ========================================================== */
+@keyframes nc-breathe {
+  0%, 100% { background-color: transparent; }
+  50%      { background-color: color-mix(in srgb, var(--nc-main) 25%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

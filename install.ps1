@@ -94,7 +94,8 @@ if ($CssOnly) {
 Write-Host ""
 Write-Host "Done. Start Firefox: Nocturne is the default theme." -ForegroundColor Green
 if ($CssOnly) {
-  Write-Host "To switch themes, open about:config?filter=.active and set ONE of them to true (all false = Nocturne)." -ForegroundColor Green
+  Write-Host "To switch themes: open about:config, search for ame.active, relics.active, manga.active or meridian.active," -ForegroundColor Green
+  Write-Host "and keep ONE of them true (all false = Nocturne). README.md has the full steps." -ForegroundColor Green
 }
 $loader = "C:\Program Files\Mozilla Firefox\theme-loader.cfg"
 if (-not $CssOnly -and -not (Test-Path $loader)) {

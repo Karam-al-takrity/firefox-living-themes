@@ -80,9 +80,16 @@ macOS and Linux should work but **haven't been tested**, and `install.ps1` is Wi
 
 ## Using it
 
-- **Switch themes in `about:config`:** open `about:config?filter=.active` and set **one** of `relics.active`, `ame.active`, `manga.active` or `meridian.active` to true. Set them all to false for Nocturne. The change is live. If a switch is missing, create it as a Boolean. Tip: bookmark `about:config?filter=.active` and name it **Themes**.
+- **Switch themes in `about:config`:** each theme has an on/off switch: `ame.active`, `relics.active`, `manga.active` and `meridian.active`. Keep **one** of them on, or all off for Nocturne. The change is live, with no restart.
+  1. Type `about:config` in the address bar and press Enter. If Firefox shows a warning, click **Accept the Risk and Continue**.
+  2. In the search box, type the full name of the theme you're leaving, for example `meridian.active`, and click **⇄** to set it to false.
+  3. Search for the theme you want, for example `manga.active`, and click **⇄** to set it to true.
+
+  If a switch is missing (the full edition's installer doesn't create them), Firefox offers to add it when you search: pick **Boolean** and click **+**.
+
+  **Shortcut:** Firefox opens a switch directly from an address like `about:config?filter=manga.active`. The name has to be exact, so a partial one like `.active` shows nothing. Make a bookmarks folder called **Themes** with one bookmark per theme pointing at its address, and each switch is one click away.
 - **Switch with the full edition and loader:** use the palette button next to ☰, or press **Ctrl+Alt+T**.
-- **Stop the animations:** set `<theme>.freeze` to true in `about:config` (for example `nocturne.freeze`), or use **Freeze animations** in the palette menu.
+- **Stop the animations:** search `about:config` for the theme's freeze switch, for example `nocturne.freeze`, and set it to true. With the loader, use **Freeze animations** in the palette menu.
 - **Music (full edition):** it plays only on the new tab page. Click the button at the end of the tab bar to mute it, and scroll on it to change the volume.
 - **Bookmark icons:** bookmarks-bar folders named `AI`, `Social`, `Piracy`, `Tetris`, `TFT`, `Chess`, `Linux` or `Other`, and a bookmark named `Freeze`, get custom icons. Change the names in each theme's CSS to suit your own.
 

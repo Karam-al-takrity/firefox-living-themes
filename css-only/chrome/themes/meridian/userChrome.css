@@ -2,7 +2,7 @@
    M E R I D I A N  —  userChrome.css
    Midnight blue and fine brass lines, like an engraved instrument.
    Calm on purpose: small, precise movements, nothing shouting.
-   The clock on the new tab lives in chrome.js + assets/clock.js.
+   The new tab instrument is drawn by assets/meridian.svg.
 
    Prefs:  meridian.freeze  true = every animation stops
    Private windows turn from brass to cold steel.
@@ -217,10 +217,6 @@
 #star-button[starred] { fill: var(--meridian-gold) !important; animation: meridian-star .6s var(--meridian-soft); }
 @keyframes meridian-star { from { transform: rotate(-180deg) scale(.4); } }
 
-#meridian-music-button { margin-inline: 4px 2px !important; align-self: center !important; }
-#meridian-music-button > .toolbarbutton-icon { display: block !important; width: 16px !important; height: 16px !important; padding: 0 !important; transition: transform .4s var(--meridian-soft) !important; }
-#meridian-music-button:hover > .toolbarbutton-icon { transform: rotate(45deg); }
-#meridian-music-button > .toolbarbutton-text { display: none !important; }
 
 /* ==========================================================
    ADDRESS BAR

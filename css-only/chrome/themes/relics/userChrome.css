@@ -405,12 +405,6 @@
   }
 }
 
-/* ===================== night music button (made by chrome.js, which also sets its icon) ===================== */
-#relics-music-button { margin-inline: 4px 2px !important; align-self: center !important; }
-#relics-music-button > .toolbarbutton-icon { display: block !important; width: 16px !important; height: 16px !important; padding: 0 !important; transition: transform .3s var(--relics-pop), filter .3s !important; }
-#relics-music-button[playing] > .toolbarbutton-icon { filter: drop-shadow(0 0 4px rgba(255,138,74,.7)); }
-#relics-music-button:hover > .toolbarbutton-icon { transform: rotate(-10deg) scale(1.12); }
-#relics-music-button > .toolbarbutton-text { display: none !important; }
 /* =========================== menus and panels =========================== */
 menupopup, panel {
   --panel-background: var(--relics-panel) !important;

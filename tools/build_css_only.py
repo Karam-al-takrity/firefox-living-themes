@@ -38,7 +38,7 @@ for path in SRC.rglob("*"):
     out.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(path, out)
 
-(DST / "userChrome.css").write_text("""/* CSS-only edition: no JavaScript, nothing installed outside your profile.
+(DST / "userChrome.css").write_text("""/* CSS-only edition: pure CSS, nothing installed outside your profile.
    Each theme loads only while its pref is true (about:config, live, no restart):
      relics.active   = true  -> relics
      ame.active      = true  -> ame
@@ -98,8 +98,23 @@ mc.write_text(css, encoding="utf-8")
 
 subprocess.run([sys.executable, str(ROOT / "tools" / "make_meridian_css.py")], check=True)
 
-# ---- checks: nothing that needs a script, and every url() points at a real file
+# the music buttons only exist when a script creates them: drop their styles,
+# and any comment that mentions the scripts
+for sheet in DST.rglob("*.css"):
+    lines = sheet.read_text(encoding="utf-8").splitlines(keepends=True)
+    kept = [l for l in lines
+            if not re.match(r"\s*#\w+-music-button", l)
+            and "made by chrome.js" not in l]
+    text = "".join(kept).replace(
+        "   The clock on the new tab lives in chrome.js + assets/clock.js.\n",
+        "   The new tab instrument is drawn by assets/meridian.svg.\n")
+    sheet.write_text(text, encoding="utf-8")
+
+# ---- checks: nothing that needs a script, no mention of one, and every url() points at a real file
 problems = [str(p.relative_to(ROOT)) for p in DST.rglob("*") if p.suffix in SKIP_FILES]
+for sheet in DST.rglob("*.css"):
+    if re.search(r"chrome\.js|music-button|clock\.js", sheet.read_text(encoding="utf-8")):
+        problems.append(f"{sheet.relative_to(ROOT)} still mentions a script or its button")
 for sheet in DST.rglob("*.css"):
     text = sheet.read_text(encoding="utf-8")
     for ref in re.findall(r'url\(\s*["\']?([^"\')]+)["\']?\s*\)', text):

@@ -401,12 +401,6 @@
   }
 }
 
-/* ===================== night music button (made by chrome.js) ===================== */
-#ame-music-button { margin-inline: 4px 2px !important; align-self: center !important; }
-#ame-music-button > .toolbarbutton-icon { display: block !important; width: 16px !important; height: 16px !important; padding: 0 !important; transition: transform .3s var(--ame-pop), filter .3s !important; }
-#ame-music-button[playing] > .toolbarbutton-icon { filter: drop-shadow(0 0 4px rgba(61,224,255,.8)); }
-#ame-music-button:hover > .toolbarbutton-icon { transform: rotate(-10deg) scale(1.12); }
-#ame-music-button > .toolbarbutton-text { display: none !important; }
 
 /* =========================== menus and panels =========================== */
 menupopup, panel {
